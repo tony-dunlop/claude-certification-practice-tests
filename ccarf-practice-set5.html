@@ -1,0 +1,227 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-F Practice Set 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Architect – Foundations · CCAR-F</div>
+<h1>Architect practice set 5: 15 questions</h1>
+</header>
+<p class="lede">Scenario-based, like the real exam: <strong>three scenarios</strong> from the published list, with new questions that are all design decisions, with five questions on each, spread across the five exam domains. The real exam uses four scenarios with 15 questions each. Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 1</b> Questions 1–5</div>
+<p style="font-weight:600;margin-bottom:4px">Structured data extraction</p>
+<p style="margin:0">You're designing a system that uses Claude to pull structured data out of documents such as invoices and contracts. The output is checked against a JSON schema and passed to downstream systems. Accuracy has to stay high, including on unusual documents.</p></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q1</b> Tool Design &amp; MCP Integration</div>
+<p><code>tool_choice</code> is fixed on the invoice extraction tool. When a document turns out not to be an invoice, Claude still fills in the invoice fields with invented values. The pipeline needs a machine-readable result for every document. What is the best fix?</p>
+<ol><li data-l="A">Set <code>tool_choice</code> to <code>auto</code>, so Claude extracts invoices and replies in text for anything else</li><li data-l="B">Keep the extraction tool forced, and add an instruction to leave every field empty for non-invoices</li><li data-l="C">Add a second tool for rejecting a document, and set <code>tool_choice</code> to <code>any</code> for every request</li><li data-l="D">Set <code>tool_choice</code> to <code>none</code>, and ask Claude to return the extraction as JSON in its text reply</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> The pipeline needs a structured result for every document, including "this isn't an invoice". Two tools with <code>any</code> gives Claude an honest way to say that. Forcing the extraction tool makes it describe an invoice that isn't there, and <code>auto</code> allows plain text the pipeline can't read.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q2</b> Prompt Engineering &amp; Structured Output</div>
+<p>The schema has a contract end date field. Some contracts give no date, only wording such as "twelve months from signing". Claude works out a date, and it is sometimes wrong. What is the best schema change?</p>
+<ol><li data-l="A">Add a field for the wording as written, beside a date field that may be null</li><li data-l="B">Keep the single date field, and tell Claude to work the date out as carefully as possible</li><li data-l="C">Keep the single date field, and reject any contract that doesn't state an exact end date</li><li data-l="D">Change the date field to free text, and let downstream systems interpret whatever was written</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Keeping the original wording preserves what the contract actually says. A date that can be null stops a calculated guess being stored as a fact.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q3</b> Prompt Engineering &amp; Structured Output</div>
+<p>On contracts of more than a hundred pages, a single extraction pass regularly misses clauses in the middle of the document. What is the best redesign?</p>
+<ol><li data-l="A">Extract from the whole document twice, then keep the result that has more fields filled</li><li data-l="B">Extract from the first and last twenty pages only, since key terms usually appear there</li><li data-l="C">Extract from the whole document once, with an instruction to pay attention to the middle</li><li data-l="D">Extract from each section separately, then merge the results and check them for conflicts</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Attention thins out over a very long document, most of all in the middle. Section-by-section passes give each part full attention, and the merge step catches conflicts between them.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q4</b> Prompt Engineering &amp; Structured Output</div>
+<p>Human reviewers spend most of their time hunting through each document to confirm the extracted values. Which change to the output would speed them up the most?</p>
+<ol><li data-l="A">Return each value with a confidence score from one to ten, set by Claude itself</li><li data-l="B">Return each value with the page number and the exact wording that it was taken from</li><li data-l="C">Return each value twice, from two separate runs, so that reviewers can compare them</li><li data-l="D">Return each value with a short explanation of why Claude believes that it is right</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> A page number and a quote let a reviewer confirm a value in seconds. A confidence score or an explanation still leaves them searching the document.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q5</b> Context Management &amp; Reliability</div>
+<p>You're about to send 100,000 archived documents through the Message Batches API with a new extraction prompt. What should you do first?</p>
+<ol><li data-l="A">Run a sample of a few hundred first, fix what fails, then submit the full set</li><li data-l="B">Submit the full set at once, then resubmit whichever documents come back with errors</li><li data-l="C">Split the full set into ten equal batches, then submit all of them at the same time</li><li data-l="D">Submit the full set through real-time calls, then watch the first results as they arrive</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> A sample run finds prompt and schema problems while they are cheap to fix. Finding them after the full run means paying for it twice.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 2</b> Questions 6–10</div>
+<p style="font-weight:600;margin-bottom:4px">Code generation with Claude Code</p>
+<p style="margin:0">Your team uses Claude Code to build features in a large existing codebase. You're deciding how it's configured and how developers should work with it.</p></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q6</b> Claude Code Configuration &amp; Workflows</div>
+<p>A set of rules about database migrations matters only when someone works in the migrations folder. The team wants those rules to use no context at any other time. Where should they go?</p>
+<ol><li data-l="A">In the root <code>CLAUDE.md</code>, under a heading that names the migrations folder</li><li data-l="B">In a rule file with no path pattern, alongside the team's other rule files</li><li data-l="C">In each developer's personal <code>CLAUDE.md</code>, under a heading for this project only</li><li data-l="D">In a rule file whose path pattern matches the migrations folder only</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> A rule with a path pattern loads only when Claude works on matching files. A rule with no pattern is loaded in every session, the same as <code>CLAUDE.md</code>.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q7</b> Claude Code Configuration &amp; Workflows</div>
+<p>One developer wants a local build command to run without an approval prompt, on their own machine and in this project only. Where should that permission go?</p>
+<ol><li data-l="A">In <code>.claude/settings.json</code>, which applies to everyone on the project and is committed</li><li data-l="B">In <code>.claude/settings.local.json</code>, which applies to them in this project and isn't committed</li><li data-l="C">In the project's <code>CLAUDE.md</code>, as an instruction saying the command needs no approval</li><li data-l="D">In the managed settings file, which applies to everyone in the organisation</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> <code>settings.local.json</code> is personal to that developer in that project and stays out of version control. The shared settings file would change the permission for the whole team.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q8</b> Claude Code Configuration &amp; Workflows</div>
+<p>The team's code formatter has to run after every file edit that Claude makes, with no exceptions. Which mechanism should enforce that?</p>
+<ol><li data-l="A">A line in <code>CLAUDE.md</code> that tells Claude to run the formatter after every edit</li><li data-l="B">A skill that developers invoke to run the formatter whenever they remember to</li><li data-l="C">A hook that runs the formatter automatically after every file edit that Claude makes</li><li data-l="D">A rule file that reminds Claude about formatting whenever it opens a source file</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Something that must happen every time belongs in a hook, which runs as code. Instructions and rules are followed most of the time, not every time.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q9</b> Context Management &amp; Reliability</div>
+<p>A developer keeps one Claude Code session open all day and works through several unrelated tasks in it. By the afternoon, Claude is mixing up details from earlier tasks. What is the best habit to change?</p>
+<ol><li data-l="A">Start a fresh session for each unrelated task, and carry over only what the next one needs</li><li data-l="B">Keep one session for the whole day, and remind Claude of the current task every few turns</li><li data-l="C">Keep one session for the whole day, and ask Claude to ignore everything from earlier tasks</li><li data-l="D">Start a fresh session only when Claude makes an error, and continue in it until the next</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Leftover context from earlier tasks competes with the current one. A fresh session keeps the context for the task in hand.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q10</b> Claude Code Configuration &amp; Workflows</div>
+<p>A developer wants Claude Code to work on two independent features at the same time, without one piece of work overwriting the other's files. What is the best setup?</p>
+<ol><li data-l="A">Run two sessions in the same folder, and tell each one which files to leave alone</li><li data-l="B">Run one session, and ask Claude to switch between the two features after each change</li><li data-l="C">Run two sessions in separate git worktrees, so each has its own copy of the files</li><li data-l="D">Run two sessions in the same folder, and commit after every edit to avoid any clashes</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Separate worktrees give each session its own files, so neither can overwrite the other. Sharing one folder relies on both sessions staying out of each other's way.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 3</b> Questions 11–15</div>
+<p style="font-weight:600;margin-bottom:4px">Multi-agent research system</p>
+<p style="margin:0">You're designing a research system in which a coordinator agent hands work to specialised subagents: one searches the web, one analyses documents, one combines the findings and one writes the report. Each subagent runs with its own separate context.</p></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q11</b> Agentic Architecture &amp; Orchestration</div>
+<p>You're deciding what the coordinator should put in the brief it gives each subagent. Which contents lead to the most useful results?</p>
+<ol><li data-l="A">The full conversation so far, so the subagent can work out for itself what is needed</li><li data-l="B">The goal, what is already known, the format to return, and where the task should stop</li><li data-l="C">A one-line topic, so the subagent is free to decide the scope and the format</li><li data-l="D">The coordinator's system prompt, so the subagent follows exactly the same rules and role</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> A subagent starts with nothing but its brief. It needs the goal, the starting point, the format and the limits. The whole conversation buries those in noise.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q12</b> Agentic Architecture &amp; Orchestration</div>
+<p>The system runs each stage once: search, analyse, combine, write. Reports often miss an angle that a human researcher would have gone back to look for. What is the best change?</p>
+<ol><li data-l="A">Have the coordinator accept the first set of findings, and note in the report that it may be incomplete</li><li data-l="B">Have the coordinator run every search twice at the start, so that gaps are less likely to appear</li><li data-l="C">Have the report writer fill any gaps from general knowledge, in the same style as the rest</li><li data-l="D">Have the coordinator check the combined findings for gaps, and send follow-up tasks for what is missing</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> A single pass can't know what it missed. Checking the result and sending follow-up tasks is how the coordinator closes the gaps.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q13</b> Context Management &amp; Reliability</div>
+<p>Two sources give different figures for the same statistic. On inspection, the figures come from different years. How should the system handle cases like this?</p>
+<ol><li data-l="A">Record the date of each figure with its source, so differences over time can be told apart</li><li data-l="B">Keep the figure from the more recent source, and drop the older one from the findings</li><li data-l="C">Keep the average of the two figures, and cite both of the sources next to it</li><li data-l="D">Record the figure that appears in more sources, and treat the other one as an error</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Two figures from different years may both be right. Recording the date lets the report show a change over time and not a false contradiction.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q14</b> Tool Design &amp; MCP Integration</div>
+<p>The document-analysis subagent needs to work with a store of several hundred internal reports. It currently spends many tool calls finding out what exists. How should the store be offered to it?</p>
+<ol><li data-l="A">Expose one tool that returns every report in full, so the agent has everything at once</li><li data-l="B">Expose one tool for each report, so the agent can call the one it needs by name</li><li data-l="C">Expose the report catalogue as MCP resources, so the agent can see what exists before fetching</li><li data-l="D">Expose the store through Bash commands, so the agent can list and open the files itself</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Resources let the agent see what is available without spending tool calls to find out. One tool per report doesn't scale, and returning everything fills the context.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q15</b> Context Management &amp; Reliability</div>
+<p>A full research run takes about two hours. When something crashes part-way through, all the work so far is lost and the run starts again. What is the best design change?</p>
+<ol><li data-l="A">Have the coordinator restart the whole run from the beginning, with a longer time limit set</li><li data-l="B">Have each agent save its progress to a file, and have the coordinator resume from those files</li><li data-l="C">Have the coordinator keep all progress in its own conversation, and summarise it more often</li><li data-l="D">Have each agent work on a smaller, faster model, so runs finish before a crash can happen</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Progress saved outside the conversation survives a crash. Progress held only in the coordinator's context is lost along with it.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>C</td><td>Q6</td><td>D</td><td>Q11</td><td>B</td></tr>
+<tr><td>Q2</td><td>A</td><td>Q7</td><td>B</td><td>Q12</td><td>D</td></tr>
+<tr><td>Q3</td><td>D</td><td>Q8</td><td>C</td><td>Q13</td><td>A</td></tr>
+<tr><td>Q4</td><td>B</td><td>Q9</td><td>A</td><td>Q14</td><td>C</td></tr>
+<tr><td>Q5</td><td>A</td><td>Q10</td><td>C</td><td>Q15</td><td>B</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with the full list of six scenarios, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>

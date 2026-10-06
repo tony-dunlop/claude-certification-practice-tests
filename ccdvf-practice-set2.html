@@ -1,0 +1,215 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDV-F Practice Set 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Developer – Foundations · CCDV-F</div>
+<h1>Practice set 2: 15 questions</h1>
+</header>
+<p class="lede">Weighted roughly by the official blueprint (<strong>Applications &amp; Integration</strong> 33%, <strong>Model Selection &amp; Optimization</strong> 17%). Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" data-a="B"><div class="meta"><b>Q1</b> Applications &amp; Integration</div>
+<p>You send Claude four scanned invoice pages as images in one request and ask it to compare totals. Its answers mix up which figure came from which page. What is the best fix?</p>
+<ol><li data-l="A">Stitch all four pages into one tall image so there's only one input</li><li data-l="B">Label each image in text before it ("Invoice 1:", "Invoice 2:" and so on), and put the images before the question</li><li data-l="C">Send each page in a separate API call and concatenate the four answers</li><li data-l="D">Switch from URL image sources to base64 so the model reads them more accurately</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Anthropic's vision guidance is to label multiple images and to put images before the text that asks about them. Separate calls (C) lose the cross-page comparison, and the encoding (D) doesn't affect understanding.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q2</b> Applications &amp; Integration</div>
+<p>A prompt change caused a quality regression in production. The prompts are edited as inline strings in several services, and nobody can tell which prompt version produced which logged output. What is the best long-term fix?</p>
+<ol><li data-l="A">Move the prompts to a database that product managers can edit live</li><li data-l="B">Add today's date to the top of each prompt so outputs can be traced</li><li data-l="C">Freeze all prompts and stop changing them</li><li data-l="D">Version the prompts in source control, log the prompt version and model ID with every request, and run evals in CI whenever a prompt changes</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Treat prompts like code: versioned, traceable in logs, and tested before release. Live editing with no history (A) makes the tracing problem worse.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q3</b> Applications &amp; Integration</div>
+<p>Before sending large document requests, your service needs to check that each one fits in the context window and to estimate its input cost. What is the most reliable way to do this?</p>
+<ol><li data-l="A">Call the API's token counting endpoint with the same messages, system prompt and tools</li><li data-l="B">Estimate tokens as characters ÷ 4</li><li data-l="C">Send the request and catch the error if it's too long</li><li data-l="D">Count tokens with an open-source tokenizer from another model provider</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> The token counting endpoint uses Claude's own tokenizer and includes tools, images and the system prompt. A characters ÷ 4 rule (B) is a rough guess, and another provider's tokenizer (D) counts differently.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q4</b> Applications &amp; Integration</div>
+<p>A director asks your team to "use Claude to cut support costs." What should you do first?</p>
+<ol><li data-l="A">Prototype with the most capable model straight away, to show value quickly</li><li data-l="B">Design a multi-agent architecture that can handle every ticket type</li><li data-l="C">Turn the goal into measurable requirements: which ticket types, what counts as success, when to hand over to a human, and the latency, privacy and data-residency constraints</li><li data-l="D">Write the system prompt, since prompt quality decides everything else</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> This is the "Understanding requirements" skill: business goal → functional and infrastructure requirements. Building before you know what success means is the trap in A, B and D.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q5</b> Model Selection &amp; Optimization</div>
+<p>You're adding inline code completion to an editor. Suggestions must start appearing in well under a second, and most completions are short. Which setup fits best?</p>
+<ol><li data-l="A">The most capable model with extended thinking, for the best suggestions</li><li data-l="B">The Message Batches API, to keep costs down</li><li data-l="C">A larger model, warmed up with a dummy request every minute</li><li data-l="D">A fast, small model tier with streaming, a low <code>max_tokens</code>, and caching for the stable part of the prompt</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> For latency, choose a small tier, stream the output, cap its length and cache the stable prefix (caching cuts latency as well as cost). Thinking (A) and batches (B) both add delay.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q6</b> Model Selection &amp; Optimization</div>
+<p>A ticket-routing classifier has extended thinking turned on. It's slow and expensive, and on your eval set its accuracy is the same with thinking turned off. What should you do?</p>
+<ol><li data-l="A">Raise <code>budget_tokens</code> so the thinking is more thorough</li><li data-l="B">Turn thinking off for this task, and keep it for problems that need multi-step reasoning</li><li data-l="C">Move the classifier to the Batches API, keeping thinking on</li><li data-l="D">Switch to a larger model and keep thinking on</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> The eval data shows thinking adds cost and delay without improving accuracy. Spend it only where it measurably helps.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q7</b> Agents &amp; Workflows</div>
+<p>You're building an agent with the Claude Agent SDK. It must read anywhere in the repo, but it may only write files under <code>/output</code>. What is the most reliable way to enforce that?</p>
+<ol><li data-l="A">Limit the agent's allowed tools, and use a permission callback or PreToolUse hook that denies any write outside <code>/output</code></li><li data-l="B">State the rule clearly in the system prompt</li><li data-l="C">Run the agent with full permissions so it doesn't stall on prompts, and review the diff afterwards</li><li data-l="D">Remove all write tools from the agent</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Enforce it in code, not in the prompt. B is only a request. D can't meet the requirement to write to <code>/output</code>.</div></details></section>
+
+<section class="q" data-a="AC"><div class="meta"><b>Q8</b> Agents &amp; Workflows · choose TWO</div>
+<p>A custom agent loop sometimes gets stuck calling the same tool with the same arguments over and over, until it's stopped by hand. Which TWO safeguards should you add?</p>
+<ol><li data-l="A">A hard cap on turns, tokens or cost per task, with a clean failure when it's reached</li><li data-l="B">Drop the <code>tool_result</code> from the history when a call repeats, so the model can't see the loop</li><li data-l="C">Detect repeated identical calls, and return a tool result that explains the problem so the model can change course</li><li data-l="D">Raise <code>max_tokens</code> so the agent can finish its reasoning</li><li data-l="E">Set <code>temperature</code> to 0, which removes loops</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A and C.</b> A budget cap is the backstop, and a useful tool result helps the model recover. Dropping results (B) breaks the tool-use protocol and hides the information the model needs.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q9</b> Prompt &amp; Context Engineering</div>
+<p>Your system prompt says "Do not use markdown." The output still often contains bullet lists and bold headings. The system prompt itself is written in heavy markdown. What is the best fix?</p>
+<ol><li data-l="A">Repeat "NO MARKDOWN" several times in capital letters</li><li data-l="B">Leave the prompt alone and strip the markdown with a regex afterwards</li><li data-l="C">Raise <code>temperature</code> to break the formatting habit</li><li data-l="D">Describe what you want instead (for example, "write in flowing prose paragraphs"), and remove the markdown from the prompt itself</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Anthropic's guidance: say what to do rather than what not to do, and match the style of the prompt to the output you want. A heavily formatted prompt pulls the output towards the same formatting.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q10</b> Prompt &amp; Context Engineering</div>
+<p>You want Claude to reason step by step to improve accuracy, but your code must extract the final answer reliably. What is the best prompt design?</p>
+<ol><li data-l="A">Ask for the final answer only, to keep parsing simple</li><li data-l="B">Ask for reasoning, then take the last line of the response as the answer</li><li data-l="C">Ask for the reasoning inside <code>&lt;thinking&gt;</code> tags and the final answer inside <code>&lt;answer&gt;</code> tags, then parse the answer tag</li><li data-l="D">Make one call for the reasoning and a separate call for the answer, without passing the reasoning between them</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> XML tags separate the reasoning from the answer so it can be parsed reliably. Asking for the answer only (A) gives up the accuracy gain, the last line (B) is fragile, and D throws the reasoning away.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q11</b> Tools &amp; MCP</div>
+<p>You're building an MCP server for an HR system. It must provide a set of read-only policy documents for applications to attach as context, and it must also let the model submit leave requests. How should you expose these?</p>
+<ol><li data-l="A">Make every policy document its own tool</li><li data-l="B">Expose the policy documents as MCP resources and leave submission as an MCP tool</li><li data-l="C">Expose both as MCP prompts</li><li data-l="D">Hard-code the documents into the server's instructions text and expose leave submission as a tool</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> In MCP, resources are context the application chooses to attach, tools are actions the model calls, and prompts are reusable templates the user chooses. Match each one to its job.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q12</b> Tools &amp; MCP</div>
+<p>A <code>get_account</code> tool returns the full 200 KB account record, and after a few calls the agent's context is full. What is the best fix?</p>
+<ol><li data-l="A">Redesign the tool to return only the fields the task needs, with filter or pagination parameters and concise errors</li><li data-l="B">Move to a model with a larger context window</li><li data-l="C">Cut the response off at 4,000 characters, even if that's mid-JSON</li><li data-l="D">Pass every tool result through a second LLM call that summarises it</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Design tool outputs for the model: return what it needs and let it ask for more. Cutting mid-JSON (C) corrupts the data, and an extra summarising call (D) adds cost and delay on every call.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q13</b> Security &amp; Safety</div>
+<p>The support transcripts you send to Claude sometimes contain full card numbers. Compliance requires that card numbers never leave your environment. What should you do?</p>
+<ol><li data-l="A">Tell Claude in the system prompt to ignore any card numbers</li><li data-l="B">Ask Claude to redact card numbers from its output</li><li data-l="C">Use the smallest model tier, since it keeps less of what it sees</li><li data-l="D">Detect and redact (or tokenise) card numbers in your own code before the API call</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> A, B and C all still send the card numbers to the API. The only way to keep them in your environment is to remove them before the request leaves.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q14</b> Eval, Testing &amp; Debugging</div>
+<p>You've rewritten a summarisation prompt and believe it's better. How should you confirm that before shipping it?</p>
+<ol><li data-l="A">Ship it and watch user complaints for a week</li><li data-l="B">Try five examples by hand and compare the outputs</li><li data-l="C">Run the old and new prompts on the same fixed eval set, with defined graders (code checks where possible, and an LLM judge using a rubric checked against human labels), and compare the scores</li><li data-l="D">Ask Claude which of the two prompts is better</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Use a fixed dataset, graders you've validated and a side-by-side comparison. Five examples (B) are anecdotes, and asking the model which prompt is better (D) isn't measurement.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q15</b> Claude Code</div>
+<p>Your team has a detailed 30-step release procedure with helper scripts, used about once a fortnight. Keeping it in the project's <code>CLAUDE.md</code> bloats every session's context. What is the best home for it?</p>
+<ol><li data-l="A">Leave it in <code>CLAUDE.md</code> so it's always available</li><li data-l="B">Package it as a Skill (a <code>SKILL.md</code> with a clear description, plus the scripts), so it's loaded only when relevant. Distribute it as a plugin if other repos need it</li><li data-l="C">Move it into <code>.claude/settings.json</code></li><li data-l="D">Keep it in a wiki and paste it into the chat at each release</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Only a skill's description is loaded until the task calls for it, so the full procedure stays out of context until it's needed. <code>settings.json</code> (C) holds configuration, not instructions.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>B</td><td>Q6</td><td>B</td><td>Q11</td><td>B</td></tr>
+<tr><td>Q2</td><td>D</td><td>Q7</td><td>A</td><td>Q12</td><td>A</td></tr>
+<tr><td>Q3</td><td>A</td><td>Q8</td><td>A, C</td><td>Q13</td><td>D</td></tr>
+<tr><td>Q4</td><td>C</td><td>Q9</td><td>D</td><td>Q14</td><td>C</td></tr>
+<tr><td>Q5</td><td>D</td><td>Q10</td><td>C</td><td>Q15</td><td>B</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with its three worked sample questions, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>

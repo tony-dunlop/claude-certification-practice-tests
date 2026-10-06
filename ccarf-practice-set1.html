@@ -1,0 +1,227 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-F Practice Set</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Architect – Foundations · CCAR-F</div>
+<h1>Architect practice set: 15 questions</h1>
+</header>
+<p class="lede">Scenario-based, like the real exam: <strong>three scenarios</strong> from the published list, with five questions on each, spread across the five exam domains. The real exam uses four scenarios with 15 questions each. Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 1</b> Questions 1–5</div>
+<p style="font-weight:600;margin-bottom:4px">Customer support resolution agent</p>
+<p style="margin:0">You're designing an agent that resolves support tickets for an online retailer. It has tools to look up customers and orders, issue refunds, and escalate to a human. The target is to resolve 80% of tickets at first contact without a person stepping in.</p></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q1</b> Agentic Architecture &amp; Orchestration</div>
+<p>In testing, the agent sometimes issues a refund before it has confirmed who the customer is. The system prompt already says to verify identity first. What is the best architectural fix?</p>
+<ol><li data-l="A">Move the verification instruction to the top of the system prompt, and mark it there as a critical rule</li><li data-l="B">Add few-shot examples to the prompt that show identity verification happening before any refund is issued</li><li data-l="C">Add a gate in code, so the refund tool is refused unless the session has a verified customer ID</li><li data-l="D">Have a second model review each finished conversation, and flag any where verification was skipped before a refund</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> When a step must always happen first, enforce the order in code. Prompt instructions and examples (A, B) make it more likely but can't guarantee it, and a review afterwards (D) only finds the mistake once the money has gone.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q2</b> Tool Design &amp; MCP Integration</div>
+<p>When the order system is briefly unavailable, the lookup tool returns the text "Operation failed". The agent then either retries many times or tells the customer the order doesn't exist. How should the tool be redesigned?</p>
+<ol><li data-l="A">Return a structured error giving the kind of failure, whether a retry makes sense, and a short explanation</li><li data-l="B">Return an empty result whenever the order system is unavailable, so the agent moves on to its next step</li><li data-l="C">Retry inside the tool until the order system responds, so the agent never has to see a failure</li><li data-l="D">Add a line to the system prompt telling the agent to retry three times after any tool failure</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> The agent can only respond sensibly if it can tell a temporary outage from "not found". Give it the category and whether to retry. An empty result (B) looks the same as a real "no such order".</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q3</b> Agentic Architecture &amp; Orchestration</div>
+<p>You need to decide when the agent hands a ticket to a human. Which rule is the most reliable?</p>
+<ol><li data-l="A">Escalate when a sentiment score on the customer's messages shows that they are upset or frustrated</li><li data-l="B">Escalate when the customer asks for a person, policy doesn't cover it, or the agent is stuck</li><li data-l="C">Escalate when the agent rates its own confidence in resolving the ticket at below seventy per cent</li><li data-l="D">Escalate any conversation that goes past five turns without the ticket being marked as resolved</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Clear, checkable conditions work best. An upset customer may have a simple problem the agent can fix, and a model's rating of its own confidence (C) isn't a dependable signal.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q4</b> Context Management &amp; Reliability</div>
+<p>In long conversations the history is summarised to save space. Afterwards, the agent refers to "your recent order" and has lost the order number and the refund amount the customer gave earlier. What is the best fix?</p>
+<ol><li data-l="A">Stop summarising altogether, and keep the whole conversation history in every request sent to the model</li><li data-l="B">Have the agent ask the customer to repeat the order number and amount whenever they're needed</li><li data-l="C">Tell the summariser to write longer summaries that try to keep more of the conversation's detail</li><li data-l="D">Keep order numbers, amounts and dates in a separate block that is always sent, never summarised</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Summaries lose exact values. Keep the facts that must stay precise in their own block, outside the part that gets compressed. Keeping everything (A) only delays the problem.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q5</b> Prompt Engineering &amp; Structured Output</div>
+<p>When the agent escalates, the human agent can't see the conversation. What should the handoff contain?</p>
+<ol><li data-l="A">A structured summary: customer ID, the issue, findings, actions already taken, and a recommended next step</li><li data-l="B">The full raw transcript of the conversation, including every tool call and tool result along the way</li><li data-l="C">A one-line note saying the customer needs help, plus a link to the customer's account page</li><li data-l="D">The customer's sentiment score, the number of turns so far, and the time the conversation started</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> The person picking it up needs enough to act without re-asking the customer. A raw transcript (B) makes them dig for it, and one line (C) makes them start again.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 2</b> Questions 6–10</div>
+<p style="font-weight:600;margin-bottom:4px">Multi-agent research system</p>
+<p style="margin:0">You're designing a research system in which a coordinator agent hands work to specialised subagents: one searches the web, one analyses documents, one combines the findings and one writes the report. Each subagent runs with its own separate context.</p></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q6</b> Agentic Architecture &amp; Orchestration</div>
+<p>The coordinator calls the synthesis subagent with the instruction "synthesise the findings". What comes back is generic and ignores what the search and analysis subagents found. What is the most likely cause?</p>
+<ol><li data-l="A">The synthesis subagent is running on a model that isn't capable enough to combine findings from several sources</li><li data-l="B">Subagents can't see the coordinator's conversation, so the findings must be passed explicitly in the subagent's instructions</li><li data-l="C">The synthesis subagent's system prompt is too short to explain how findings should be combined into a summary</li><li data-l="D">The search subagent returned its results in a format that the synthesis subagent wasn't able to read</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> A subagent starts with only what it's given. Anything it needs (the findings, the goal, the output format) has to be in the task the coordinator hands over.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q7</b> Agentic Architecture &amp; Orchestration</div>
+<p>The coordinator sends five independent research questions to the search subagent one after another, waiting for each to finish. A run takes 12 minutes. What is the best way to speed it up?</p>
+<ol><li data-l="A">Have the coordinator start all five subagent tasks in the same turn, so that they run in parallel</li><li data-l="B">Put all five questions into a single subagent task, so that only one subagent has to start</li><li data-l="C">Switch the search subagent to a smaller, faster model, so that each of the five searches finishes sooner</li><li data-l="D">Limit each search to its top two results, so that every subagent has less material to read</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Independent tasks can run side by side. One combined task (B) fills a single context with five topics, and the cuts in C and D trade away quality.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q8</b> Context Management &amp; Reliability</div>
+<p>The web-search subagent times out part-way through a task. How should that failure be handled?</p>
+<ol><li data-l="A">The subagent returns an empty result marked as successful, so the rest of the workflow carries on</li><li data-l="B">The whole research run stops with an error, and the user is asked to start it again</li><li data-l="C">The subagent keeps retrying the search on its own, for as long as it takes to succeed</li><li data-l="D">The subagent reports the failure and any partial results to the coordinator, which decides what happens next</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Send enough detail up for the coordinator to choose: retry, use another source, or carry on and note the gap. Hiding the failure (A) produces a report with a silent hole in it.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q9</b> Context Management &amp; Reliability</div>
+<p>The final report gives statistics with no sources, and in one place it quietly picks one of two conflicting figures. What change fixes this at the design level?</p>
+<ol><li data-l="A">Tell the report writer to add a list of citations at the end of every report it produces</li><li data-l="B">Have subagents return findings as claim-and-source pairs, kept through synthesis, with conflicts flagged and not resolved silently</li><li data-l="C">Use a more capable model for the report writer, so that it attributes statistics to sources more reliably</li><li data-l="D">Run the search step twice for every question, and keep only the figures that match in both runs</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Source details are lost at each handoff unless they're carried as data. The report writer (A) can't cite what it was never given.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q10</b> Tool Design &amp; MCP Integration</div>
+<p>Every subagent has been given the full set of 18 tools. The document-analysis subagent sometimes wanders off to run web searches, and tool selection has become less accurate across the system. What is the best fix?</p>
+<ol><li data-l="A">Add a line to each subagent's prompt that lists the tools it has but shouldn't use</li><li data-l="B">Write longer, more detailed descriptions for all 18 tools, so each subagent can tell them apart</li><li data-l="C">Give each subagent only the tools its own role needs, and remove the rest from its set</li><li data-l="D">Have the coordinator choose the tool for every step, and tell each subagent which one to call</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Fewer, role-specific tools make selection more reliable and keep each subagent on its job. Asking it not to use tools it can see (A) is weaker than not offering them.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 3</b> Questions 11–15</div>
+<p style="font-weight:600;margin-bottom:4px">Claude Code for continuous integration</p>
+<p style="margin:0">Your team is adding Claude Code to its CI pipeline. On every pull request it will review the changes and post comments, and a nightly job will generate missing tests.</p></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q11</b> Claude Code Configuration &amp; Workflows</div>
+<p>The CI job needs Claude Code's review findings in a form a script can read, so each finding can be posted as an inline comment on the right file and line. What is the best approach?</p>
+<ol><li data-l="A">Run it in interactive mode, and have the script copy the findings from the terminal output afterwards</li><li data-l="B">Run it in non-interactive mode (<code>-p</code>) with JSON output and a defined structure for each finding</li><li data-l="C">Ask for the review as Markdown, and have the script extract each finding with regular expressions</li><li data-l="D">Have Claude Code write its findings into <code>CLAUDE.md</code>, and have the script read them from there</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Automation needs non-interactive mode and structured output it can parse. Scraping free text (C) breaks whenever the wording changes.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q12</b> Claude Code Configuration &amp; Workflows</div>
+<p>In the nightly job, the same Claude Code session that writes new tests is then asked to review them. It almost never finds a problem. What is the best change?</p>
+<ol><li data-l="A">Ask the same session to review the tests a second time before the job finishes</li><li data-l="B">Add an instruction to the review step that tells the session to be more critical</li><li data-l="C">Run the review in a separate session that doesn't have the writing session's context</li><li data-l="D">Use a more capable model tier for the review step than for the writing step</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> A session that made the decisions tends to agree with them. A fresh session judges the result without the reasoning that produced it.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q13</b> Prompt Engineering &amp; Structured Output</div>
+<p>The review bot posts many comments about style and minor preferences. Developers have started ignoring all of them, including the real bugs. What is the best fix to the review prompt?</p>
+<ol><li data-l="A">Add an instruction to report only the issues that the bot is highly confident about</li><li data-l="B">Add an instruction to be conservative, and to avoid commenting unless it is really necessary</li><li data-l="C">Limit the bot to three comments on each pull request, whatever it finds in the changes</li><li data-l="D">Say what to report (bugs, security problems) and what to skip (style, naming), with examples</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Specific categories and examples change what gets reported. Vague instructions such as "be conservative" (A, B) don't tell the model where the line is.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q14</b> Claude Code Configuration &amp; Workflows</div>
+<p>The CI job ignores the team's testing conventions. On one developer's machine Claude Code follows them, because they wrote the conventions into their personal <code>~/.claude/CLAUDE.md</code>. What is the right fix?</p>
+<ol><li data-l="A">Copy that developer's personal <code>CLAUDE.md</code> onto the CI machine, so the job picks it up</li><li data-l="B">Paste the conventions into the CI job's prompt, so they're sent with every review request</li><li data-l="C">Ask every developer to add the same conventions to their own personal <code>CLAUDE.md</code> file</li><li data-l="D">Put the conventions in the project's <code>CLAUDE.md</code>, committed to the repository for CI and every developer</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Personal settings apply to one person's machine. Team conventions belong in the project file, under version control, where every environment picks them up.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q15</b> Prompt Engineering &amp; Structured Output</div>
+<p>On a pull request that touches 40 files, a single review pass gives detailed comments on the first few files, thin ones on the rest, and misses a bug caused by two files changing together. What is the best redesign?</p>
+<ol><li data-l="A">Review each file in its own pass, then run a separate pass on how the changes interact</li><li data-l="B">Keep the single pass, and ask for a longer and more thorough review of all forty files</li><li data-l="C">Keep the single pass, and use a model with a larger context window to hold every file</li><li data-l="D">Ask developers to keep every pull request under ten files, so a single pass is enough</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Attention spreads thin over a large single pass. Split the work so each file gets full attention, and give cross-file problems their own pass.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>C</td><td>Q6</td><td>B</td><td>Q11</td><td>B</td></tr>
+<tr><td>Q2</td><td>A</td><td>Q7</td><td>A</td><td>Q12</td><td>C</td></tr>
+<tr><td>Q3</td><td>B</td><td>Q8</td><td>D</td><td>Q13</td><td>D</td></tr>
+<tr><td>Q4</td><td>D</td><td>Q9</td><td>B</td><td>Q14</td><td>D</td></tr>
+<tr><td>Q5</td><td>A</td><td>Q10</td><td>C</td><td>Q15</td><td>A</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with the full list of six scenarios, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>

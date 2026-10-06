@@ -1,0 +1,63 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Certification Practice Sets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;--accent:#2F5D8A;--hover:#EEF2F7;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;--accent:#8DB4E0;--hover:#232B36;color-scheme:dark}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede,.foot{color:var(--muted);margin:0}
+.foot{font-size:0.85rem}
+.meta{font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.group{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+ul{list-style:none;margin:10px 0 0;padding:0}
+li{border-top:1px solid var(--line)}
+li a{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:12px 8px;border-radius:6px;color:inherit;text-decoration:none}
+li a:hover{background:var(--hover)}
+li a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+li strong{color:var(--accent);font-weight:600}
+li .n{font:500 0.85rem "IBM Plex Mono",monospace;color:var(--muted);font-variant-numeric:tabular-nums}
+li .d{grid-column:1/-1;color:var(--muted);font-size:0.92rem}
+</style>
+
+<main>
+<header>
+<div class="meta">Claude Certification Program · Practice</div>
+<h1>Claude certification practice sets</h1>
+</header>
+<p class="lede">Click an option to answer. Each question is marked straight away with an explanation, and your score is tallied at the bottom of the page.</p>
+
+<!-- To add a set: copy one <li> below into the right group and change the link, name, count and description. -->
+
+<section class="group">
+<div class="meta"><b>Developer – Foundations</b> · CCDV-F</div>
+<ul>
+<li><a href="ccdvf-practice-easy-warmup.html"><strong>Warm-up set</strong><span class="n">12 questions</span><span class="d">The basics: the Messages API, streaming, tool results, caching, MCP and <code>CLAUDE.md</code>.</span></a></li>
+<li><a href="ccdvf-practice-set1.html"><strong>Set 1</strong><span class="n">15 questions</span><span class="d">Harder API detail: cache invalidation, batch results, streamed tool calls, thinking blocks, settings priority.</span></a></li>
+<li><a href="ccdvf-practice-set2.html"><strong>Set 2</strong><span class="n">15 questions</span><span class="d">Broad coverage: vision, prompt versioning, token counting, the Agent SDK, MCP resources, evals, skills.</span></a></li>
+<li><a href="ccdvf-practice-set3.html"><strong>Set 3</strong><span class="n">15 questions</span><span class="d">LLM fundamentals, model selection, output handling and guardrails, plus "as the developer" questions.</span></a></li>
+<li><a href="ccdvf-practice-set4.html"><strong>Set 4</strong><span class="n">15 questions</span><span class="d">A mix of all three styles: API detail, broad topics and developer judgement.</span></a></li>
+</ul>
+</section>
+
+<section class="group">
+<div class="meta"><b>Architect – Foundations</b> · CCAR-F</div>
+<ul>
+<li><a href="ccarf-practice-set1.html"><strong>Set 1</strong><span class="n">15 questions</span><span class="d">Scenarios: customer support agent, multi-agent research system, Claude Code in continuous integration.</span></a></li>
+<li><a href="ccarf-practice-set2.html"><strong>Set 2</strong><span class="n">15 questions</span><span class="d">Scenarios: code generation with Claude Code, developer productivity, structured data extraction.</span></a></li>
+<li><a href="ccarf-practice-set3.html"><strong>Set 3</strong><span class="n">15 questions</span><span class="d">Harder questions on three earlier scenarios: code generation, structured data extraction, multi-agent research.</span></a></li>
+<li><a href="ccarf-practice-set4.html"><strong>Set 4</strong><span class="n">15 questions</span><span class="d">Harder questions on the other three scenarios: customer support agent, developer productivity, Claude Code in CI.</span></a></li>
+<li><a href="ccarf-practice-set5.html"><strong>Set 5</strong><span class="n">15 questions</span><span class="d">Design decisions across three scenarios: structured data extraction, code generation, multi-agent research.</span></a></li>
+</ul>
+</section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guides. They are not real exam items. The official guides are free on the Anthropic Partner Academy certification pages.</p>
+</main>

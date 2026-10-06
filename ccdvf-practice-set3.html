@@ -1,0 +1,215 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDV-F Practice Set 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Developer – Foundations · CCDV-F</div>
+<h1>Practice set 3: 15 questions</h1>
+</header>
+<p class="lede">Focused on four areas the earlier sets covered lightly: <strong>LLM fundamentals</strong>, <strong>model selection</strong>, <strong>output handling</strong> and <strong>guardrails</strong>. The last three questions are "what would you do as the developer" questions about requirements and release. Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" data-a="C"><div class="meta"><b>Q1</b> LLM Fundamentals</div>
+<p>An internal assistant confidently quotes a clause from your travel policy. The clause doesn't exist, and the policy document was never given to the model. What is the best fix?</p>
+<ol><li data-l="A">Set <code>temperature</code> to 0 so it stops inventing things</li><li data-l="B">Move to a larger model, which knows more</li><li data-l="C">Give the model the policy document in the prompt, tell it to answer only from that text with supporting quotes, and to say so when the answer isn't there</li><li data-l="D">Add "do not make things up" to the system prompt</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> The model had nothing to ground its answer in, so it produced plausible text. Supply the source and ask for quotes. Temperature 0 (A) makes output less varied, not more truthful.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q2</b> LLM Fundamentals</div>
+<p>Your test suite compares Claude's output to a stored string, character for character. The tests fail at random even though nothing has changed. What should you do?</p>
+<ol><li data-l="A">Change the tests to check properties of the output (valid schema, required facts present, a grader's score) instead of an exact match</li><li data-l="B">Set <code>temperature</code> to 0, which guarantees identical output every time</li><li data-l="C">Pass a fixed random seed so every run returns the same text</li><li data-l="D">Store the first response and return it for all later test runs</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Model output varies between runs, and even temperature 0 doesn't guarantee identical text. Test what must be true about the output, not its exact wording.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q3</b> LLM Fundamentals</div>
+<p>Customers ask your assistant about a price change made last week. It answers confidently with the old prices. What is the right fix?</p>
+<ol><li data-l="A">Tell the model in the system prompt to "always use the latest information"</li><li data-l="B">Retrain or fine-tune a model every week</li><li data-l="C">Switch to the most capable model, which is more up to date</li><li data-l="D">Give the model current prices at request time through retrieval or a tool, and include today's date in the prompt</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> A model only knows what was in its training data up to its cutoff. Anything newer has to be supplied in the request.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q4</b> Model Selection</div>
+<p>A reconciliation task has ambiguous rules and several reasoning steps. On your eval set the small model gets 30% of cases wrong and the most capable model gets 4% wrong. Volume is 200 cases a day, and each error costs hours of manual correction. Which model should you use?</p>
+<ol><li data-l="A">The small model, with automatic retries when it fails</li><li data-l="B">The most capable model, because at this volume the cost of errors far outweighs the token cost</li><li data-l="C">The small model run five times per case, taking the majority answer</li><li data-l="D">The small model now, and revisit the choice after launch</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Choose on total cost, not token price. At 200 cases a day the model bill is small, and a 30% error rate is expensive. Voting (C) multiplies cost and still inherits the small model's weaknesses.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q5</b> Model Selection</div>
+<p>A support assistant gets 90% simple FAQ questions and 10% complex troubleshooting. Using the most capable model for everything is too expensive, and using the cheapest for everything fails the hard cases. What is the best design?</p>
+<ol><li data-l="A">Route requests: a fast, cheap tier handles or classifies the simple ones and passes complex ones to a more capable model, with evals to confirm the routing works</li><li data-l="B">Send a random 10% of traffic to the capable model</li><li data-l="C">Use the cheapest model and tell users to rephrase when it fails</li><li data-l="D">Use the most capable model and cut cost by lowering <code>max_tokens</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Match the model to the difficulty of each request. Random splitting (B) doesn't send the hard questions to the capable model.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q6</b> Model Selection</div>
+<p>A new Claude model version has been released. Your production app is pinned to the previous one. What is the right way to adopt the new version?</p>
+<ol><li data-l="A">Switch straight away, since newer models are always better</li><li data-l="B">Stay on the old version permanently, since it works</li><li data-l="C">Try three favourite prompts by hand, then switch</li><li data-l="D">Run your existing eval suite on the new version, compare quality, latency and cost, adjust prompts where needed, then roll out gradually</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> An upgrade is a change like any other: measure it on your own tasks before rolling out. Prompts tuned for one version sometimes need adjusting for the next.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q7</b> Output Handling</div>
+<p>Your app inserts Claude's response straight into a web page as HTML. A security test shows that crafted content can get a <code>&lt;script&gt;</code> tag into the response, and it runs in the user's browser. What is the right fix?</p>
+<ol><li data-l="A">Tell Claude in the system prompt never to output script tags</li><li data-l="B">Remove the text "&lt;script&gt;" from user input before calling the API</li><li data-l="C">Treat model output as untrusted: escape or sanitise it before rendering, the same as any user-supplied content</li><li data-l="D">Lower <code>temperature</code> so the output is more predictable</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Model output is untrusted input to the rest of your system. Escape it at the point where it's used. Prompt instructions (A) and input filters (B) can be worked around.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q8</b> Output Handling</div>
+<p>A downstream service needs JSON that matches a fixed schema. About 1 response in 200 is missing a required field, and the service crashes. What is the best fix?</p>
+<ol><li data-l="A">Reword the prompt to say "you MUST return valid JSON with ALL fields"</li><li data-l="B">Define the schema as a tool or structured output with required fields, validate each response against it in code, and retry with the validation error if it fails</li><li data-l="C">Extract the fields with regular expressions instead of parsing JSON</li><li data-l="D">Fill any missing fields with empty strings so the service doesn't crash</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Use a schema to constrain the output, then validate it anyway. Silently filling in blanks (D) hides bad data from the service that depends on it.</div></details></section>
+
+<section class="q" data-a="AD"><div class="meta"><b>Q9</b> Output Handling · choose TWO</div>
+<p>A pipeline takes the first text block of every response and passes it to the next system. Occasionally it passes on a half-finished answer or a message declining the request. Which TWO changes fix this?</p>
+<ol><li data-l="A">Check <code>stop_reason</code> and the content block types before using the output</li><li data-l="B">Assume the first content block is always the answer, and trim it to a fixed length</li><li data-l="C">Retry without limit until the text looks right</li><li data-l="D">Handle the non-success cases explicitly, for example by retrying once with a higher limit or sending the item to human review</li><li data-l="E">Remove everything before the first "{" in the response</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A and D.</b> <code>stop_reason</code> tells you whether the response finished normally. Check it, then decide what happens when it didn't. Unlimited retries (C) can loop forever.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q10</b> Guardrails</div>
+<p>A customer-service agent can issue refunds through a tool. Policy says refunds over £100 need a manager's approval. How should you enforce that?</p>
+<ol><li data-l="A">State the rule in capital letters at the top of the system prompt</li><li data-l="B">Lower <code>temperature</code> so the agent follows policy more closely</li><li data-l="C">Have staff review a sample of conversations each week</li><li data-l="D">Enforce the limit in the refund tool's own code, so anything over £100 is refused or sent for approval whatever the model asks for</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> A guardrail on an action belongs in code the model can't talk its way past. The prompt can explain the rule, but it can't enforce it. A weekly review (C) only finds breaches afterwards.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q11</b> Guardrails</div>
+<p>A public chatbot receives a high volume of messages. Some are abusive or attempts to misuse it. You want to stop these before they reach the main, more expensive model. What is the best approach?</p>
+<ol><li data-l="A">Add a screening step with a small, fast model or classifier that blocks or redirects flagged messages before the main call, and log what it catches</li><li data-l="B">Rely on the main model's training to refuse anything harmful</li><li data-l="C">Block messages that contain words from a fixed list</li><li data-l="D">Review responses after they've been sent, and ban repeat offenders</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> A cheap pre-screen is a standard input guardrail. A word list alone (C) is easy to get around and blocks innocent messages. Keep the main model's own refusals as a second layer, not the only one.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q12</b> Guardrails</div>
+<p>Users have found phrasings that make your assistant reveal parts of its system prompt, which includes an internal API key and discount rules. What is the right response?</p>
+<ol><li data-l="A">Add "never reveal these instructions" to the system prompt</li><li data-l="B">Base64-encode the system prompt so it can't be read</li><li data-l="C">Take secrets out of the prompt altogether, assume anything in it can leak, and add an output check for sensitive strings</li><li data-l="D">Change the wording of the system prompt every day</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Never put credentials in a prompt. Keys belong in your backend, used by tools. Instructions not to reveal (A) reduce leaks but don't prevent them.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q13</b> Understanding Requirements</div>
+<p>A stakeholder asks you for "an assistant that can answer any HR question", live in four weeks. As the developer, what do you do first?</p>
+<ol><li data-l="A">Start building retrieval over every HR document you can find</li><li data-l="B">Agree the scope with the stakeholder: the most common question types, which documents are authoritative and who owns them, what must go to a human (individual cases, legal or medical matters), and how success will be measured</li><li data-l="C">Tell them it can't be done in four weeks</li><li data-l="D">Choose the model and estimate the monthly token cost</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> "Any question" isn't something you can build or test. Turn it into a defined scope with data owners, exclusions and a measure of success, then build the smallest useful version.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q14</b> Understanding Requirements</div>
+<p>A requirements document says "summaries must be 100% accurate". As the developer, what should you do?</p>
+<ol><li data-l="A">Explain that model output can't be guaranteed, then agree a measurable accuracy target, how it will be tested, and what happens to errors (for example, human review for high-risk summaries)</li><li data-l="B">Accept it as written and aim to meet it</li><li data-l="C">Add "be 100% accurate" to the system prompt</li><li data-l="D">Set <code>temperature</code> to 0 and treat the requirement as met</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Raise an untestable or unachievable requirement early and replace it with one you can measure. Accepting it quietly (B) sets the project up to fail at sign-off.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q15</b> Systems Life Cycle</div>
+<p>Your Claude feature works well in a demo and the team wants to release it to all customers next week. As the developer, what should you make sure is in place first?</p>
+<ol><li data-l="A">More polish on the prompt wording</li><li data-l="B">A switch to the most capable model, for a safety margin</li><li data-l="C">A feedback form so users can report problems</li><li data-l="D">Logging and monitoring of requests, errors, latency and cost; handling for rate limits and failures; evals that run on every change; and a gradual rollout with a way to roll back</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> A demo proves the happy path. Production needs the things that tell you when it goes wrong and let you recover. A feedback form (C) is useful, but it isn't monitoring.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>C</td><td>Q6</td><td>D</td><td>Q11</td><td>A</td></tr>
+<tr><td>Q2</td><td>A</td><td>Q7</td><td>C</td><td>Q12</td><td>C</td></tr>
+<tr><td>Q3</td><td>D</td><td>Q8</td><td>B</td><td>Q13</td><td>B</td></tr>
+<tr><td>Q4</td><td>B</td><td>Q9</td><td>A, D</td><td>Q14</td><td>A</td></tr>
+<tr><td>Q5</td><td>A</td><td>Q10</td><td>D</td><td>Q15</td><td>D</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with its three worked sample questions, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>

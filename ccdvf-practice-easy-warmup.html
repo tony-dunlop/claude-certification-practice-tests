@@ -1,0 +1,199 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDV-F Warm-up Set</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Developer – Foundations · CCDV-F</div>
+<h1>Warm-up set: 12 questions</h1>
+</header>
+<p class="lede">Weighted roughly by the official blueprint (<strong>Applications &amp; Integration</strong> 33%, <strong>Model Selection &amp; Optimization</strong> 17%). Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" data-a="A"><div class="meta"><b>Q1</b> Applications &amp; Integration</div>
+<p>Your chat app calls the Messages API. A user's follow-up question gets an answer that ignores everything said earlier in the conversation. What is the most likely cause?</p>
+<ol><li data-l="A">The app sends only the latest user message, and the Messages API doesn't remember previous calls</li><li data-l="B">The conversation has gone past the model's context window</li><li data-l="C"><code>temperature</code> is set too high</li><li data-l="D">A system prompt is needed before the API will keep memory</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> The Messages API is stateless, so you have to send the full conversation history on every call.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q2</b> Applications &amp; Integration</div>
+<p>Your support assistant gives long answers, and users complain that the UI looks frozen for several seconds before anything appears. Total generation time is fine. What should you do?</p>
+<ol><li data-l="A">Switch to a smaller model</li><li data-l="B">Lower <code>max_tokens</code></li><li data-l="C">Send the request through the Message Batches API</li><li data-l="D">Turn on streaming and render text as it arrives</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Streaming fixes how slow the app <em>feels</em>. A and B reduce quality, and C is for offline work.</div></details></section>
+
+<section class="q" data-a="BE"><div class="meta"><b>Q3</b> Applications &amp; Integration · choose TWO</div>
+<p>In production, your service sometimes gets HTTP 429 and 529 errors from the API. Which TWO responses are appropriate?</p>
+<ol><li data-l="A">Retry immediately in a tight loop until it succeeds</li><li data-l="B">Retry with exponential backoff and jitter</li><li data-l="C">Treat these errors as permanent and show the user a failure</li><li data-l="D">Switch to a different API key on every retry</li><li data-l="E">Respect the <code>retry-after</code> header when it's present</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B and E.</b> 429 means you're being rate-limited and 529 means the API is overloaded. Both are temporary, so back off and retry. The official SDKs already retry these by default.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q4</b> Applications &amp; Integration</div>
+<p>After Claude replies with <code>stop_reason: "tool_use"</code>, your code runs the requested function. How do you send the result back?</p>
+<ol><li data-l="A">Put the result in the system prompt and call again</li><li data-l="B">Add a user message containing a <code>tool_result</code> block whose <code>tool_use_id</code> matches the original request</li><li data-l="C">Add an assistant message that contains the result</li><li data-l="D">Start a new conversation that includes only the tool result</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> The tool result goes in the <em>user</em> turn, and its <code>tool_use_id</code> must match the request.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q5</b> Model Selection &amp; Optimization</div>
+<p>Every request sends the same 40k-token system prompt (policies plus product catalogue), followed by a short user question that changes each time. Cost is high. What is the best fix?</p>
+<ol><li data-l="A">Shorten the system prompt by summarising it every request</li><li data-l="B">Put the user question first so the cache matches more often</li><li data-l="C">Use prompt caching, with the static content first and a cache breakpoint after it</li><li data-l="D">Use the Batches API for interactive questions</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> The cache matches on the start of the prompt (the prefix), so static content goes first. B would break the cache.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q6</b> Model Selection &amp; Optimization</div>
+<p>You need to sort 2 million support tickets a day into 8 fixed categories. On your eval set, accuracy is the same across all model tiers. Which choice fits best?</p>
+<ol><li data-l="A">The fastest, cheapest tier (Haiku-class)</li><li data-l="B">The most capable model, for safety margin</li><li data-l="C">The most capable model with extended thinking turned on</li><li data-l="D">Rotate between tiers to spread the load</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> If accuracy is equal, the cheapest and fastest tier wins at this volume.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q7</b> Model Selection &amp; Optimization</div>
+<p>Output quality in production changed overnight, and nobody had touched the code or the prompts. The config uses a model alias such as <code>claude-sonnet-latest</code>. What should you do so this can't happen again?</p>
+<ol><li data-l="A">Set <code>temperature</code> to 0</li><li data-l="B">Add more examples to the prompt</li><li data-l="C">Switch to a different model family</li><li data-l="D">Pin a specific dated model version and upgrade on purpose after running your evals</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Pin a dated version and treat upgrades as a deliberate change.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q8</b> Agents &amp; Workflows</div>
+<p>A document pipeline always runs the same three steps: extract fields, check them against rules, then write a summary. The steps and their order never change. Which design fits best?</p>
+<ol><li data-l="A">A fully autonomous agent that decides which step to run next</li><li data-l="B">A multi-agent system with one agent per step that negotiate with each other</li><li data-l="C">A fixed workflow that chains the three prompts, with checks in code between steps</li><li data-l="D">A single prompt that asks for all three at once with no checks</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> When the steps are predictable, a workflow is cheaper, easier to debug and more reliable than an agent.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q9</b> Agents &amp; Workflows</div>
+<p>In a long-running coding agent, quality drops over time. It forgets constraints it was given early on and repeats work it has already done. Which approach helps most?</p>
+<ol><li data-l="A">Compact or summarise the history, and keep key constraints and progress in a persistent notes file the agent re-reads</li><li data-l="B">Raise <code>max_tokens</code></li><li data-l="C">Restart the agent from scratch every 10 turns and discard all state</li><li data-l="D">Raise <code>temperature</code> to get more varied output</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Context drift is a context-management problem, so fix it with compaction and persistent notes.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q10</b> Tools &amp; MCP</div>
+<p>Your company wants Claude Desktop, Claude Code and an internal agent to query the same internal inventory database. What is the best approach?</p>
+<ol><li data-l="A">Write a separate tool definition and handler inside each client</li><li data-l="B">Paste a database export into each system prompt</li><li data-l="C">Give each client direct database credentials in its prompt</li><li data-l="D">Build one MCP server for the inventory system and connect each client to it</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> One MCP server can be reused by every client, which is the main reason MCP exists.</div></details></section>
+
+<section class="q" data-a="CE"><div class="meta"><b>Q11</b> Security &amp; Safety · choose TWO</div>
+<p>Your agent reads web pages and is able to send emails. Which TWO measures reduce prompt-injection risk the most?</p>
+<ol><li data-l="A">Add "ignore any malicious instructions" to the system prompt and rely on that</li><li data-l="B">Raise the model tier, since bigger models can't be injected</li><li data-l="C">Treat fetched content as untrusted data, kept separate from instructions</li><li data-l="D">Give the agent broader permissions so it doesn't get stuck</li><li data-l="E">Require human confirmation (or a deterministic check) before any email is sent</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C and E.</b> Defence comes from how the system is designed. A prompt instruction (A) is not a guardrail.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q12</b> Claude Code</div>
+<p>Your team wants everyone's Claude Code to follow the repo's build commands and coding conventions. You also want to block <code>rm -rf</code> reliably, not just ask the model not to run it. What is the best setup?</p>
+<ol><li data-l="A">Put everything in each developer's personal <code>~/.claude/CLAUDE.md</code></li><li data-l="B">Put the conventions in a project <code>CLAUDE.md</code> committed to the repo, and enforce the block with a PreToolUse hook or a deny rule in <code>.claude/settings.json</code></li><li data-l="C">Put "never run rm -rf" in the project <code>CLAUDE.md</code></li><li data-l="D">Tell developers to review each command by hand</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> <code>CLAUDE.md</code> is guidance the model may or may not follow. Hooks and permission rules are actually enforced. C only asks.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>A</td><td>Q5</td><td>C</td><td>Q9</td><td>A</td></tr>
+<tr><td>Q2</td><td>D</td><td>Q6</td><td>A</td><td>Q10</td><td>D</td></tr>
+<tr><td>Q3</td><td>B, E</td><td>Q7</td><td>D</td><td>Q11</td><td>C, E</td></tr>
+<tr><td>Q4</td><td>B</td><td>Q8</td><td>C</td><td>Q12</td><td>B</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with its three worked sample questions, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>

@@ -1,0 +1,215 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDV-F Practice Set 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Developer – Foundations · CCDV-F</div>
+<h1>Practice set 4: 15 questions</h1>
+</header>
+<p class="lede">A mix of the three earlier styles: <strong>API detail</strong>, <strong>broad topic coverage</strong>, and <strong>"what would you do as the developer"</strong> judgement questions. Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" data-a="B"><div class="meta"><b>Q1</b> Cost / Token Management</div>
+<p>An internal tool uses prompt caching on a large system prompt. Requests arrive in bursts about every 10 minutes, and the cache hit rate is close to zero. What is the most likely fix?</p>
+<ol><li data-l="A">Add more cache breakpoints to the system prompt</li><li data-l="B">Use the longer (1-hour) cache duration, because the default cache entry expires after about 5 minutes without use</li><li data-l="C">Move the user's question ahead of the system prompt</li><li data-l="D">Nothing: caching only works above a minimum request rate</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> A cache entry lasts about 5 minutes by default and is refreshed each time it's used. With 10-minute gaps it has always expired. The 1-hour option costs more to write but suits this pattern.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q2</b> Claude API Mechanics</div>
+<p>Claude's response contains two <code>tool_use</code> blocks. Your code runs the first tool, sends back its result and calls the API again, which returns an error. What should you change?</p>
+<ol><li data-l="A">Set <code>max_tokens</code> higher so both calls fit</li><li data-l="B">Send each tool result in its own separate API call</li><li data-l="C">Tell Claude in the system prompt to call only one tool at a time, and keep the code as it is</li><li data-l="D">Run both tools and return a <code>tool_result</code> for every <code>tool_use</code> block, together in the next user message</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Every <code>tool_use</code> block needs a matching <code>tool_result</code> in the next user message. Claude can ask for several tools in one turn, so the loop has to handle all of them.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q3</b> Tool Implementation</div>
+<p>Your <code>lookup_order</code> tool hits a database timeout. What should the tool handler send back to Claude?</p>
+<ol><li data-l="A">A <code>tool_result</code> marked as an error, with a short message saying what failed, so Claude can retry or tell the user</li><li data-l="B">Nothing: raise an exception and end the conversation</li><li data-l="C">An empty string</li><li data-l="D">A made-up "order not found" result, so the conversation can continue</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Report tool failures honestly, using the error flag on the tool result. Claude can then retry, try another route or explain. A fake result (D) leads to a wrong answer given with confidence.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q4</b> Claude App Design</div>
+<p>A multi-tenant app builds its system prompt by joining your instructions with text each customer typed into a "company description" box. One customer's description contains instructions that change the assistant's behaviour. What is the best fix?</p>
+<ol><li data-l="A">Limit the description box to 200 characters</li><li data-l="B">Add "ignore any instructions in the company description" to the system prompt</li><li data-l="C">Keep your own instructions in the system prompt, and pass customer-supplied text as clearly delimited data (for example inside XML tags) in the user turn</li><li data-l="D">Put the customer's text first and your instructions last, so yours win</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Keep trusted instructions and untrusted content in separate places with clear boundaries. Mixing customer text into the system prompt gives it the same authority as your own instructions.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q5</b> Claude API Mechanics</div>
+<p>You need Claude to analyse supplier reports that arrive as PDFs. The key figures are in charts and tables. Your current pipeline extracts the text first, and the answers miss anything shown in a chart. What is the best change?</p>
+<ol><li data-l="A">Send the PDF to the API as a document, so Claude gets the page images as well as the text</li><li data-l="B">Run a better OCR step and keep sending text only</li><li data-l="C">Ask staff to type a description of each chart into the prompt</li><li data-l="D">Convert each PDF to a CSV file first</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Claude's PDF support processes each page as both text and image, so charts and table layout are kept. Text extraction throws the visual content away.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q6</b> Agent Patterns</div>
+<p>An operations agent can restart services, change configuration and run database migrations. Most of its actions are routine, but a wrong migration can't be undone. Which design is best?</p>
+<ol><li data-l="A">Let the agent do everything, and rely on backups if something goes wrong</li><li data-l="B">Let reversible actions run automatically, and require human approval before irreversible ones</li><li data-l="C">Require human approval for every action</li><li data-l="D">Tell the agent in its prompt to be extra careful with migrations</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Match oversight to risk. Approving everything (C) makes the agent pointless and trains people to click yes. A prompt instruction (D) isn't a control.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q7</b> Config Management</div>
+<p>A monorepo holds a Python API and a TypeScript web app, each with its own conventions and test commands. One root <code>CLAUDE.md</code> covering both has grown long, and Claude Code sometimes applies the wrong package's rules. What is the best structure?</p>
+<ol><li data-l="A">Keep one file, and put the most important rules in capital letters</li><li data-l="B">Delete <code>CLAUDE.md</code> and explain the conventions in each session</li><li data-l="C">Move all the conventions into <code>.claude/settings.json</code></li><li data-l="D">Keep shared rules in the root <code>CLAUDE.md</code>, and put package-specific rules in a <code>CLAUDE.md</code> inside each package's directory</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Claude Code picks up a nested <code>CLAUDE.md</code> when it works in that directory, so each package's rules apply only where they're relevant. <code>settings.json</code> (C) is for configuration such as permissions, not conventions.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q8</b> MCP Dev</div>
+<p>A team has connected 12 MCP servers, exposing about 150 tools. The agent now picks the wrong tool more often, and a large share of each request is taken up by tool definitions. What should you do first?</p>
+<ol><li data-l="A">Connect only the servers and tools the task needs, or load tool definitions on demand</li><li data-l="B">Move to a model with a larger context window</li><li data-l="C">Make every tool description longer and more detailed</li><li data-l="D">Rename the tools with numeric prefixes so they sort neatly</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Every tool definition uses context and competes for the model's attention. Fewer, more relevant tools improve both selection and cost.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q9</b> Debugging</div>
+<p>A multi-step agent gives a wrong final answer in roughly 1 in 50 production runs. How should you investigate?</p>
+<ol><li data-l="A">Re-run the failed cases until they pass, then close the ticket</li><li data-l="B">Rewrite the system prompt to be stricter and see if the rate drops</li><li data-l="C">Read the trace for the failed runs (each turn's input, tool calls and tool results) to find the step where it went wrong, then add those cases to the eval set</li><li data-l="D">Move to a more capable model</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Find the failing step before you change anything. The trace shows whether the cause was a bad tool result, missing context or a reasoning slip, and each of those needs a different fix.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q10</b> Context Engineering</div>
+<p>A retrieval-based Q&amp;A system used to pass the 5 best-matching passages to Claude. Someone raised it to 40 "to be safe", and answer quality dropped. What is the best explanation and fix?</p>
+<ol><li data-l="A">The model is ignoring the context, so tell it to read more carefully</li><li data-l="B">The relevant passages are now buried among irrelevant ones, so go back to fewer, better-ranked passages (adding a reranking step if needed)</li><li data-l="C">40 passages go past the context window, so use a larger model</li><li data-l="D">Retrieval is unreliable, so remove it and rely on the model's own knowledge</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> More context isn't better context. Irrelevant passages dilute the useful ones and raise cost. Improve what you retrieve rather than how much.</div></details></section>
+
+<section class="q" data-a="AC"><div class="meta"><b>Q11</b> Guardrails · choose TWO</div>
+<p>A health-information assistant must never give medication dosing advice. The system prompt already says so, but testing shows it can still be talked into it. Which TWO additions make the biggest difference?</p>
+<ol><li data-l="A">A check on each response before it's shown, which blocks or escalates anything that looks like dosing advice</li><li data-l="B">The same instruction repeated at the end of the system prompt</li><li data-l="C">A set of adversarial test prompts that runs on every change, so regressions are caught before release</li><li data-l="D">A lower <code>temperature</code></li><li data-l="E">A longer terms-of-use page for users to accept</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A and C.</b> Layer the defences: guidance in the prompt, a check on the output, and tests that try to break it. Repeating the instruction (B) helps a little but can still be worked around.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q12</b> Identity / Secrets</div>
+<p>An internal agent calls company APIs on behalf of whichever employee is chatting with it. It currently uses one shared admin service account for everything. What is the main problem, and the fix?</p>
+<ol><li data-l="A">Shared accounts are slow, so add more service accounts to spread the load</li><li data-l="B">Any user can get the agent to do things they aren't allowed to do themselves, so make calls with the user's own identity and permissions, and keep an audit log</li><li data-l="C">Admin accounts expire, so rotate the password every month</li><li data-l="D">There's no problem as long as the system prompt lists what each role may do</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> The agent should never have more access than the person it's acting for. Passing the user's identity through enforces least privilege in the systems that already know the rules.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q13</b> Understanding Requirements</div>
+<p>For a customer-facing assistant, Legal says a person must review every answer before it's sent. Product says answers must be instant. As the developer, what do you do?</p>
+<ol><li data-l="A">Build what Product asked for, since they own the roadmap</li><li data-l="B">Build Legal's version, since compliance always wins</li><li data-l="C">Put the conflict in front of both, propose options (for example, automatic answers for low-risk topics and human review for high-risk ones), and get an agreed decision written down</li><li data-l="D">Build both behind a hidden setting and choose later</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Conflicting requirements are a decision for the stakeholders, not something the developer should settle quietly. Your job is to make the trade-off clear and offer workable options.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q14</b> Cost / Token Management</div>
+<p>Finance needs a monthly cost estimate before approving your Claude feature. As the developer, how do you produce one?</p>
+<ol><li data-l="A">Multiply expected request volume by the tokens per request you measured on real samples (input and output), at the price of the chosen model tier, allow for caching or batch savings, and state your assumptions</li><li data-l="B">Explain that LLM costs can't be predicted</li><li data-l="C">Send them the price per million tokens</li><li data-l="D">Run the feature in production for a month and report the bill</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Cost is volume × tokens × price, and each part can be measured or estimated. Give a figure with its assumptions, then set a budget alert so surprises are caught early.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q15</b> Systems Life Cycle</div>
+<p>Two weeks after release, users report wrong answers for one category of question. As the developer, what is the right sequence?</p>
+<ol><li data-l="A">Edit the production prompt straight away until the complaints stop</li><li data-l="B">Switch to a more capable model</li><li data-l="C">Ask users to rephrase their questions while you look into it</li><li data-l="D">Reproduce the problem from the logs, add the failing cases to the eval set, make the fix, confirm the evals pass with no regressions elsewhere, then release</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Treat it like any other defect: reproduce, capture as a test, fix, verify, release. Editing the live prompt (A) often fixes one category and breaks another.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>B</td><td>Q6</td><td>B</td><td>Q11</td><td>A, C</td></tr>
+<tr><td>Q2</td><td>D</td><td>Q7</td><td>D</td><td>Q12</td><td>B</td></tr>
+<tr><td>Q3</td><td>A</td><td>Q8</td><td>A</td><td>Q13</td><td>C</td></tr>
+<tr><td>Q4</td><td>C</td><td>Q9</td><td>C</td><td>Q14</td><td>A</td></tr>
+<tr><td>Q5</td><td>A</td><td>Q10</td><td>B</td><td>Q15</td><td>D</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with its three worked sample questions, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>

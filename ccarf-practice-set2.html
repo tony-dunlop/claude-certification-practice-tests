@@ -1,0 +1,227 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-F Practice Set 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Architect – Foundations · CCAR-F</div>
+<h1>Architect practice set 2: 15 questions</h1>
+</header>
+<p class="lede">Scenario-based, like the real exam: <strong>the other three scenarios</strong> from the published list, with five questions on each, spread across the five exam domains. The real exam uses four scenarios with 15 questions each. Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 1</b> Questions 1–5</div>
+<p style="font-weight:600;margin-bottom:4px">Code generation with Claude Code</p>
+<p style="margin:0">Your team uses Claude Code to build features in a large existing codebase. You're deciding how it's configured and how developers should work with it.</p></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q1</b> Claude Code Configuration &amp; Workflows</div>
+<p>A developer wants Claude Code to restructure the payments module. The change touches about 30 files, and there are several reasonable ways to do it. What is the best way to start?</p>
+<ol><li data-l="A">Start in plan mode, so Claude explores the code and proposes an approach for review before any file is changed</li><li data-l="B">Start with direct edits, so Claude changes files right away and the developer fixes any problems in review afterwards</li><li data-l="C">Split the work by file, and ask Claude to edit each one in a separate session with no shared plan</li><li data-l="D">Ask Claude to rewrite the module from scratch in a new folder, and swap it in once the tests pass</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Large changes with more than one possible design are what plan mode is for: agree the approach before anything is edited. Direct edits (B) suit small, well-defined changes.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q2</b> Claude Code Configuration &amp; Workflows</div>
+<p>Test files sit next to the source files throughout the repository (<code>*.test.ts</code>) and follow different conventions from the source code. Claude Code keeps applying the source conventions to tests. What is the best configuration?</p>
+<ol><li data-l="A">Put the test conventions in a <code>CLAUDE.md</code> inside every folder that contains test files across the repository</li><li data-l="B">Add the test conventions to the root <code>CLAUDE.md</code>, under a heading that says they apply only to tests</li><li data-l="C">Create a rule file under <code>.claude/rules</code> with the path pattern <code>**/*.test.ts</code>, so it loads for those files only</li><li data-l="D">Put the test conventions in each developer's personal <code>CLAUDE.md</code>, so they apply in every project they open</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Path-scoped rules apply by file pattern, which fits files spread across many folders. Folder-level files (A) would have to be repeated everywhere, and a heading in the root file (B) is loaded for everything.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q3</b> Claude Code Configuration &amp; Workflows</div>
+<p>The team wants a shared <code>/review</code> command that every developer gets automatically when they clone the repository. Where should it be defined?</p>
+<ol><li data-l="A">In <code>~/.claude/commands</code> on each developer's machine, set up by hand when they join the team</li><li data-l="B">In <code>.claude/commands</code> inside the repository, committed to version control so everyone gets it on clone</li><li data-l="C">In the root <code>CLAUDE.md</code>, as a section that describes the steps the command should follow</li><li data-l="D">In <code>.claude/settings.local.json</code> in the repository, listed under a custom commands entry for the team</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Project commands live in the repository's <code>.claude/commands</code> folder and are shared through version control. The home-folder location (A) is personal, and <code>settings.local.json</code> (D) is for personal, uncommitted settings.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q4</b> Agentic Architecture &amp; Orchestration</div>
+<p>Before implementing a feature, a developer asks Claude Code to work out how authentication flows through the codebase. The main session fills up with file contents, and the quality of the later coding work drops. What is the best approach?</p>
+<ol><li data-l="A">Hand the investigation to a subagent that explores in its own context and returns a short summary</li><li data-l="B">Ask Claude to read every relevant file in the main session first, then clear the conversation before it starts coding</li><li data-l="C">Raise the output token limit for the main session, so it has more room for the files it reads</li><li data-l="D">Tell Claude to read only the first fifty lines of each file, so that less context is used</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> A subagent does the reading in a separate context and passes back only the conclusions. Clearing the conversation (B) throws away the findings along with the clutter.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q5</b> Prompt Engineering &amp; Structured Output</div>
+<p>Claude has generated a data-transformation function. The developer has described the requirements in prose twice, and it still gets the same edge cases wrong (empty values and mixed date formats). What is the most effective next step?</p>
+<ol><li data-l="A">Rewrite the description a third time, with more emphasis on the edge cases that are still being missed</li><li data-l="B">Ask Claude to think harder about the edge cases, and to check its own work before it responds</li><li data-l="C">Switch to a more capable model, and submit the same written description of the requirements once more</li><li data-l="D">Give two or three concrete input and expected-output examples, or failing tests, that cover those edge cases</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> When prose has failed twice, concrete examples or tests remove the ambiguity. They also give Claude something to run and check against.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 2</b> Questions 6–10</div>
+<p style="font-weight:600;margin-bottom:4px">Developer productivity with Claude</p>
+<p style="margin:0">You're building an internal assistant with the Claude Agent SDK. It helps engineers explore unfamiliar codebases, understand legacy systems and automate routine tasks. It uses the built-in tools (Read, Grep, Glob, Bash) and connects to MCP servers.</p></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q6</b> Tool Design &amp; MCP Integration</div>
+<p>The agent needs to find every place the function <code>processRefund</code> is called across the repository. Which approach should it take?</p>
+<ol><li data-l="A">Use Glob with a pattern that matches the function name across every source folder in the repository</li><li data-l="B">Use Grep to search file contents for the function name, then Read the files that matter most</li><li data-l="C">Use Read on each source file in turn, and look for the function name in the returned text</li><li data-l="D">Use Bash to print every file to the terminal, and scan the combined output for the name</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Grep searches inside files, and Glob matches file names and paths. Reading every file (C, D) works but fills the context with content that isn't needed.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q7</b> Tool Design &amp; MCP Integration</div>
+<p>The team shares an MCP server for the issue tracker. Every developer should get it automatically, and each one has their own API token. How should it be configured?</p>
+<ol><li data-l="A">Add the server to each developer's user-level configuration, with their own token written into that file</li><li data-l="B">Commit the server to the project's <code>.mcp.json</code>, with every developer's token listed in the same file</li><li data-l="C">Commit the server to the project's <code>.mcp.json</code>, and reference the token through an environment variable</li><li data-l="D">Hard-code one shared team token in the server's source code, and commit that to the repository</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> The project file shares the server definition, and the environment variable keeps each person's token out of version control. User-level configuration (A) works but has to be set up by hand for every developer.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q8</b> Agentic Architecture &amp; Orchestration</div>
+<p>You're writing the agent's main loop directly against the API. How should the loop decide when the task is finished?</p>
+<ol><li data-l="A">Stop when the response's <code>stop_reason</code> is <code>end_turn</code>, and keep going while it is <code>tool_use</code></li><li data-l="B">Stop when the assistant's text contains a phrase such as "task complete" or "I'm done"</li><li data-l="C">Stop after a fixed number of turns, whatever the response's <code>stop_reason</code> or content says</li><li data-l="D">Stop when a response contains any text block, and keep going while it contains none</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> <code>stop_reason</code> is the reliable signal. Claude often writes text alongside a tool call, so D ends too early, and a fixed turn count (C) is only useful as a safety limit on top.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q9</b> Context Management &amp; Reliability</div>
+<p>During a long session exploring a legacy system, the agent's answers become vague. It talks about "typical patterns" where earlier it named the specific classes it had found. What is the best fix?</p>
+<ol><li data-l="A">Have the agent re-read every file it opened earlier, each time the user asks a new question</li><li data-l="B">Have the agent answer from general knowledge of the framework when earlier findings have dropped out of context</li><li data-l="C">Have the user restate the important findings at the start of each new question they ask</li><li data-l="D">Have the agent record key findings in a notes file, and re-read it after context is compacted</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Specific findings are lost when a long history is compressed. A notes file keeps them outside the conversation, where the agent can reload them.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q10</b> Agentic Architecture &amp; Orchestration</div>
+<p>Yesterday a developer used the assistant to analyse a module in depth. Today they want to try two different refactoring approaches, both starting from that analysis. What is the best way to set this up?</p>
+<ol><li data-l="A">Start two new sessions, and ask each one to redo the analysis before trying its approach</li><li data-l="B">Resume yesterday's session, and try both approaches one after the other in the same conversation</li><li data-l="C">Fork yesterday's session into two branches, so each approach starts from the same analysis</li><li data-l="D">Paste a summary of yesterday's analysis into two new sessions, and try one approach in each</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Forking keeps the full analysis and gives each approach its own branch. Trying both in one conversation (B) lets the first attempt influence the second.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 3</b> Questions 11–15</div>
+<p style="font-weight:600;margin-bottom:4px">Structured data extraction</p>
+<p style="margin:0">You're designing a system that uses Claude to pull structured data out of documents such as invoices and contracts. The output is checked against a JSON schema and passed to downstream systems. Accuracy has to stay high, including on unusual documents.</p></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q11</b> Prompt Engineering &amp; Structured Output</div>
+<p>Downstream systems need every extraction to match the JSON schema exactly. Which approach gives the strongest guarantee about the structure of the output?</p>
+<ol><li data-l="A">Describe the JSON format in detail in the prompt, and ask Claude to follow it exactly</li><li data-l="B">Define the schema as a tool's input schema, and require Claude to call that tool</li><li data-l="C">Give three example outputs in the prompt, and ask Claude to match their structure</li><li data-l="D">Ask for JSON in the prompt, and run a repair step on anything that fails to parse</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Requiring a tool call with a defined input schema constrains the structure of the output. Instructions and examples (A, C) improve the odds but don't guarantee it.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q12</b> Prompt Engineering &amp; Structured Output</div>
+<p>Some invoices have no purchase order number. The schema marks that field as required, and Claude sometimes fills it with an invented number. What is the best fix?</p>
+<ol><li data-l="A">Add an instruction that tells Claude never to invent values for fields it can't find</li><li data-l="B">Keep the field required, and have reviewers check the purchase order number on every invoice</li><li data-l="C">Make the field nullable in the schema, so Claude can return null when no value exists</li><li data-l="D">Remove the field from the schema, and collect purchase order numbers through a separate manual process</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> A required field with no way to say "not present" pushes the model to fill it with something. Allowing null gives it an honest answer to return.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q13</b> Prompt Engineering &amp; Structured Output</div>
+<p>An extraction passes schema validation, but its line items don't add up to the invoice total. What is the best way to handle this?</p>
+<ol><li data-l="A">Send the document back with the failed extraction and the mismatch, and ask for a correction</li><li data-l="B">Send the same request again unchanged, up to three times, until the totals happen to match</li><li data-l="C">Tighten the JSON schema with stricter types, so that mismatched totals are rejected as invalid</li><li data-l="D">Accept the extraction as it is, and let the downstream finance system catch the mismatch later</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> A schema checks structure, not whether the numbers make sense, so this needs a check in code. Retrying with the specific error gives Claude what it needs to correct it, which a blind retry (B) doesn't.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q14</b> Context Management &amp; Reliability</div>
+<p>Overall extraction accuracy is 97%, and the business wants to cut the amount of human review. What should you do before reducing it?</p>
+<ol><li data-l="A">Review a random five per cent of all extractions, and send everything else straight through automatically</li><li data-l="B">Stop human review altogether, since overall accuracy is already above the target the business agreed</li><li data-l="C">Review only the documents where Claude says in its output that it found the task difficult</li><li data-l="D">Check accuracy by document type and field, then send the weaker categories to human review</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> An overall figure can hide a document type or field that performs badly. Measure by segment, then keep review where the errors actually are.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q15</b> Context Management &amp; Reliability</div>
+<p>You send 10,000 archived contracts through the Message Batches API. 300 requests fail because the documents are too long. What is the best way to handle the failures?</p>
+<ol><li data-l="A">Resubmit the whole batch of ten thousand, with a higher output token limit set on every request</li><li data-l="B">Find the failed requests by their custom IDs, split those documents into parts, and resubmit only those</li><li data-l="C">Drop the three hundred failed documents, since ninety-seven per cent of the batch came back fine</li><li data-l="D">Move all ten thousand documents to real-time calls, so that failures can be seen as they happen</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> The custom ID on each request tells you exactly which documents failed. Fix those and resubmit them alone, without paying again for the 9,700 that worked.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>A</td><td>Q6</td><td>B</td><td>Q11</td><td>B</td></tr>
+<tr><td>Q2</td><td>C</td><td>Q7</td><td>C</td><td>Q12</td><td>C</td></tr>
+<tr><td>Q3</td><td>B</td><td>Q8</td><td>A</td><td>Q13</td><td>A</td></tr>
+<tr><td>Q4</td><td>A</td><td>Q9</td><td>D</td><td>Q14</td><td>D</td></tr>
+<tr><td>Q5</td><td>D</td><td>Q10</td><td>C</td><td>Q15</td><td>B</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with the full list of six scenarios, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>

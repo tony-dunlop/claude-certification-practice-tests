@@ -1,0 +1,215 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDV-F Practice Set</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Developer – Foundations · CCDV-F</div>
+<h1>Harder practice set: 15 questions</h1>
+</header>
+<p class="lede">Weighted roughly by the official blueprint (<strong>Applications &amp; Integration</strong> 33%, <strong>Model Selection &amp; Optimization</strong> 17%). Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" data-a="C"><div class="meta"><b>Q1</b> Applications &amp; Integration</div>
+<p>Prompt caching on a long system prompt has a cache hit rate above 90%. After a deploy that only added one new tool to the <code>tools</code> array, the hit rate drops to zero for a few minutes and then recovers. Why?</p>
+<ol><li data-l="A">Adding a tool disables caching for 5 minutes as a safety measure</li><li data-l="B">Every deploy creates a fresh API session, which clears all caches</li><li data-l="C">Tools come before the system prompt in the cached prefix, so changing them invalidates the cached system prompt too</li><li data-l="D">The system prompt's cache breakpoint must be re-declared whenever tools change</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> The cache is built in the order tools → system → messages. Changing anything early in that order invalidates everything after it, and the cache rebuilds on the next requests.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q2</b> Applications &amp; Integration</div>
+<p>You submit 5,000 requests through the Message Batches API. When you process the results, about 3% of the summaries are attached to the wrong source documents. What is the most likely cause?</p>
+<ol><li data-l="A">Your code assumes results come back in the order you submitted them, instead of matching each one by <code>custom_id</code></li><li data-l="B">The batch went past the 24-hour window and some results were regenerated</li><li data-l="C">Batches are processed by different model versions, and some outputs are mixed up</li><li data-l="D">Prompt caching across batch requests is leaking context between them</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Batch results can come back in any order. Always match each result to its request using <code>custom_id</code>.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q3</b> Applications &amp; Integration</div>
+<p>Your app streams responses that include tool calls. Sometimes the tool's <code>input</code> fails to parse as JSON. Your code calls <code>JSON.parse</code> on every <code>input_json_delta</code> event as it arrives. What should you change?</p>
+<ol><li data-l="A">Turn streaming off whenever tools are enabled</li><li data-l="B">Wrap each parse in a try/catch and skip the fragments that fail</li><li data-l="C">Set <code>max_tokens</code> higher so the JSON is never split</li><li data-l="D">Collect the partial JSON strings for that content block and parse them once at <code>content_block_stop</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Each delta is a fragment of JSON (for example <code>{"order_id": "12</code>) and is almost never valid by itself. Skipping the fragments that fail (B) throws away the tool input. Join the fragments for the block, then parse once when the block ends.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q4</b> Applications &amp; Integration</div>
+<p>A structured-extraction call sometimes returns JSON that is cut off partway through. The JSON is valid every other time. Which check should your code make first?</p>
+<ol><li data-l="A">Run a JSON repair library on every response</li><li data-l="B">Check whether <code>stop_reason</code> is <code>max_tokens</code> and handle it (raise the limit, or retry/continue), rather than parsing anyway</li><li data-l="C">Lower <code>temperature</code> to make the output deterministic</li><li data-l="D">Switch to a larger model, which produces shorter JSON</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> JSON that's cut off is the classic sign of hitting <code>max_tokens</code>. Check <code>stop_reason</code> before parsing. A repair library (A) hides missing data.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q5</b> Applications &amp; Integration</div>
+<p>You use extended thinking together with tool use. On the second turn of a tool loop, the API returns an error. Your code rebuilds the assistant message from only the <code>tool_use</code> block, to save tokens. What should you change?</p>
+<ol><li data-l="A">Send the assistant's previous content back unchanged, including the thinking blocks and their signatures, along with the <code>tool_use</code> block</li><li data-l="B">Turn off thinking on every turn after the first</li><li data-l="C">Move the thinking text into the system prompt</li><li data-l="D">Set <code>budget_tokens</code> higher than <code>max_tokens</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> In a tool loop with thinking, the thinking blocks have to be returned exactly as received. D is invalid: <code>budget_tokens</code> must be less than <code>max_tokens</code>.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q6</b> Applications &amp; Integration</div>
+<p>A single-page web app calls the Claude API directly from the browser using an API key in the JavaScript bundle. Security has flagged it. What is the right fix?</p>
+<ol><li data-l="A">Obfuscate the key and rotate it every month</li><li data-l="B">Restrict the key using CORS and an allowed-origins list</li><li data-l="C">Send calls through your own backend, which holds the key, authenticates users and enforces per-user limits</li><li data-l="D">Store the key in <code>localStorage</code> after the user logs in</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Any secret sent to the browser can be read by anyone using the app. CORS (B) is enforced by browsers, not by the API, so it doesn't stop someone using a leaked key directly.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q7</b> Model Selection &amp; Optimization</div>
+<p>Every night you summarise 50,000 documents. They all share an identical 20k-token instructions block. Results are needed by 9 a.m., and the job starts at 10 p.m. What is the cheapest correct approach?</p>
+<ol><li data-l="A">Run synchronous calls with prompt caching</li><li data-l="B">Use the Message Batches API. Prompt caching can't be used with batches</li><li data-l="C">Run synchronous calls on the smallest model with no caching</li><li data-l="D">Use the Message Batches API and also use prompt caching on the shared instructions block</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> The batch discount and the prompt-caching discount can be combined. The overnight deadline fits batch processing.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q8</b> Model Selection &amp; Optimization</div>
+<p>A compliance team wants a report on ad-hoc questions within 2 hours of asking. Volume is low (about 30 requests a day). An engineer suggests the Batches API "because it's half price." What is the main problem with that?</p>
+<ol><li data-l="A">Batch processing is only guaranteed within 24 hours, so it doesn't meet a hard 2-hour requirement</li><li data-l="B">The Batches API needs at least 1,000 requests</li><li data-l="C">The Batches API doesn't support the larger model tiers</li><li data-l="D">Batch results can't be streamed, so the reports will be lower quality</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Batches often finish much sooner, but only the 24-hour window is guaranteed. A hard 2-hour requirement needs real-time calls.</div></details></section>
+
+<section class="q" data-a="BD"><div class="meta"><b>Q9</b> Model Selection &amp; Optimization · choose TWO</div>
+<p>An agent's cost per task has tripled since launch. Traces show the same 30k tokens of reference documents are re-sent on every turn, and most turns are simple file reads and lookups. Which TWO changes should you make first?</p>
+<ol><li data-l="A">Raise <code>temperature</code> so the agent reaches answers faster</li><li data-l="B">Cache the static reference documents in the prompt prefix</li><li data-l="C">Remove the reference documents and rely on the model's training data</li><li data-l="D">Send the simple lookups to a cheaper model tier, and keep the expensive model for planning and reasoning</li><li data-l="E">Turn on extended thinking for every turn</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B and D.</b> Caching removes the cost of re-sending the same input, and routing sends the simple work to the cheaper tier. E would raise costs further.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q10</b> Agents &amp; Workflows</div>
+<p>A research agent has to investigate 6 independent sub-topics, and each one needs a lot of browsing. When one agent does all of it, the context fills up and the quality of the final synthesis drops. Which design addresses this best?</p>
+<ol><li data-l="A">Raise <code>max_tokens</code> on the single agent</li><li data-l="B">Truncate the oldest browsing results whenever the context is 80% full</li><li data-l="C">Have an orchestrator hand each sub-topic to a subagent with its own context, and have each subagent return a condensed summary for synthesis</li><li data-l="D">Run 6 completely separate agents with no orchestrator, and concatenate their raw transcripts</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Subagents keep their own contexts separate, and returning summaries keeps the orchestrator's context small. D gives you the same overflow problem again at the synthesis step.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q11</b> Prompt &amp; Context Engineering</div>
+<p>You're building a Q&amp;A feature over 3 long contracts (about 60k tokens in total). Which prompt layout follows Anthropic's guidance for long-context performance?</p>
+<ol><li data-l="A">The documents near the top, each wrapped in XML tags with source metadata, and the question and instructions at the end</li><li data-l="B">Question first, then the documents, then the question repeated</li><li data-l="C">The documents spread across several user turns, with the question in the system prompt</li><li data-l="D">A summary of each document instead of the full text, to save context</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Anthropic's guidance is long documents first and the query last, with each document in clearly tagged blocks.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q12</b> Prompt &amp; Context Engineering</div>
+<p>A classification prompt includes 3 few-shot examples. In production, the model labels too many items with the category used in 2 of those examples. What is the best fix?</p>
+<ol><li data-l="A">Remove all the examples</li><li data-l="B">Add "do not overuse category X" in capital letters</li><li data-l="C">Raise <code>temperature</code> to spread out the predictions</li><li data-l="D">Use more varied, balanced examples that cover the edge cases, and state the decision criteria explicitly</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Examples that lean towards one category bias the output. Balance the examples and spell out the decision criteria, rather than shouting a rule.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q13</b> Tools &amp; MCP</div>
+<p>Your agent has two tools: <code>search_orders</code> and <code>search_customers</code>. It often calls <code>search_orders</code> with a customer's name and gets no results. What is the best first fix?</p>
+<ol><li data-l="A">Force <code>tool_choice</code> to <code>search_customers</code> for every request</li><li data-l="B">Merge both into a single <code>search</code> tool with no parameters</li><li data-l="C">Rewrite both tool descriptions to say what each one searches, which inputs it accepts and when to use it rather than the other, with input schemas to match</li><li data-l="D">Add a retry loop that calls the other tool after an empty result</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Tool descriptions are the main way the model decides which tool to use. Forcing <code>tool_choice</code> (A) breaks the cases where <code>search_orders</code> is the right tool.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q14</b> Tools &amp; MCP</div>
+<p>Your platform team wants to give 200 engineers access to an internal MCP server for the deployment system. Running it locally means everyone installs the server and holds their own copy of the credentials. What is the better setup?</p>
+<ol><li data-l="A">Host it as a remote MCP server over HTTP with proper authentication, so credentials stay on the server side</li><li data-l="B">Keep the local setup, and share the credentials through a team password vault</li><li data-l="C">Paste the deployment API docs into each engineer's <code>CLAUDE.md</code> and let Claude call the API with curl</li><li data-l="D">Package the server as a Claude Code plugin with a credentials file built in</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> A single hosted server with per-user authentication means credentials are never handed out, and there's one copy to maintain.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q15</b> Claude Code</div>
+<p>Your organisation's managed settings deny <code>Bash(curl:*)</code>. A developer adds <code>Bash(curl:*)</code> to <code>allow</code> in their <code>.claude/settings.local.json</code> and runs Claude Code with no extra flags. What happens?</p>
+<ol><li data-l="A">The local setting wins, because it's the most specific</li><li data-l="B">The managed deny wins, because managed settings have the highest priority and can't be overridden</li><li data-l="C">Claude Code asks the developer to choose between the two rules</li><li data-l="D">Whichever file was changed most recently wins</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Managed settings have the highest priority, and a deny rule beats an allow rule anyway.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>C</td><td>Q6</td><td>C</td><td>Q11</td><td>A</td></tr>
+<tr><td>Q2</td><td>A</td><td>Q7</td><td>D</td><td>Q12</td><td>D</td></tr>
+<tr><td>Q3</td><td>D</td><td>Q8</td><td>A</td><td>Q13</td><td>C</td></tr>
+<tr><td>Q4</td><td>B</td><td>Q9</td><td>B, D</td><td>Q14</td><td>A</td></tr>
+<tr><td>Q5</td><td>A</td><td>Q10</td><td>C</td><td>Q15</td><td>B</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with its three worked sample questions, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>
