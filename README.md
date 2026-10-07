@@ -8,6 +8,8 @@ Each test is a single HTML file. Open it in any browser, click an option to answ
 >
 > This project is not affiliated with or endorsed by Anthropic or Pearson VUE.
 
+**These are short samples, not full-length mock exams.** Each set has 12 to 15 questions. The real Developer exam has 53 questions, and the real Architect exam has 60: four scenarios with 15 questions on each. Both allow 120 minutes. Questions in the real Architect exam are also longer, and their answer options are closer to one another, than in Architect sets 1 to 5. Architect sets 6 and 7 are the nearest in style.
+
 ## How to use
 
 1. Download or clone this repository.
@@ -40,6 +42,7 @@ These are scenario-based, like the real exam. Each set has three scenarios with 
 | [Set 4](ccarf-practice-set4.html) | 15 | Customer support agent, developer productivity, Claude Code in CI (harder questions) |
 | [Set 5](ccarf-practice-set5.html) | 15 | Structured data extraction, code generation, multi-agent research (design decisions) |
 | [Set 6](ccarf-practice-set6.html) | 15 | Multi-agent research, code generation, Claude Code in CI (real-exam style: longer questions, closely matched options) |
+| [Set 7](ccarf-practice-set7.html) | 15 | Customer support agent, developer productivity, structured data extraction (real-exam style: longer questions, closely matched options) |
 
 ### Claude Certified Architect – Professional (CCAR-P)
 

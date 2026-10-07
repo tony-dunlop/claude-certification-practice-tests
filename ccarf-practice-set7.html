@@ -1,0 +1,227 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-F Practice Set 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Architect – Foundations · CCAR-F</div>
+<h1>Architect practice set 7: 15 questions</h1>
+</header>
+<p class="lede">Scenario-based, like the real exam: <strong>three scenarios</strong> from the published list, written in the longer style of the real exam, with answer options that are close to one another, with five questions on each, spread across the five exam domains. The real exam uses four scenarios with 15 questions each. Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 1</b> Questions 1–5</div>
+<p style="font-weight:600;margin-bottom:4px">Customer support resolution agent</p>
+<p style="margin:0">You're designing an agent that resolves support tickets for an online retailer. It has tools to look up customers and orders, issue refunds, and escalate to a human. The target is to resolve 80% of tickets at first contact without a person stepping in.</p></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q1</b> Tool Design &amp; MCP Integration</div>
+<p>Every ticket has to begin with a customer lookup, and a refund must only ever use a customer ID and an order ID that came back from the lookup tools. In testing, the agent sometimes opens with a text reply, and it has twice issued a refund against an order ID that it guessed from the customer's message. Which design closes both gaps?</p>
+<ol><li data-l="A">Name <code>get_customer</code> in <code>tool_choice</code> on the first request and return to <code>auto</code> afterwards, and tell the agent in its prompt that refunds must only use IDs returned by the earlier lookups.</li><li data-l="B">Name <code>get_customer</code> in <code>tool_choice</code> on the first request and return to <code>auto</code> afterwards, and have the refund tool refuse any call whose IDs were not returned by the earlier lookups.</li><li data-l="C">Set <code>tool_choice</code> to <code>any</code> on every request so that a tool is always called, and have the refund tool refuse any call whose IDs were not returned by the earlier lookups.</li><li data-l="D">Name <code>get_customer</code> in <code>tool_choice</code> on every request so that the lookup can never be skipped, and tell the agent in its prompt that refunds must only use verified IDs.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Two separate guarantees are needed. Naming the tool on the first request fixes the opening step, and going back to <code>auto</code> lets the agent carry on. The check on the IDs has to live in the refund tool's own code, because a prompt instruction makes it likely, not certain.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q2</b> Context Management &amp; Reliability</div>
+<p>Some support conversations run past sixty turns. Cost per ticket is climbing. When the history is summarised, the agent loses order numbers and refund amounts, and each order lookup adds more than forty fields to the conversation, of which about five are ever used. Which approach keeps answers accurate and brings the cost down?</p>
+<ol><li data-l="A">Keep the key facts in a structured block that is updated and sent with every request, and keep every turn and every tool result in full so that nothing can be lost.</li><li data-l="B">Summarise the whole conversation every twenty turns, with the key facts written into each summary as it is made, and trim each tool result to the fields the agent actually uses.</li><li data-l="C">Keep the most recent twenty turns in full and drop everything that is older than that from the request, and trim each tool result to the fields the agent actually uses.</li><li data-l="D">Keep the key facts in a structured block that is updated and sent with every request, summarise the older turns, and trim each tool result to the fields the agent actually uses.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Exact values such as order numbers don't survive summarising, so they need their own block outside the part that gets compressed. With that in place, summarising older turns and trimming tool results cuts the cost safely. Keeping everything in full protects accuracy but does nothing about the cost.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q3</b> Agentic Architecture &amp; Orchestration</div>
+<p>A customer asks about two separate orders in one message. To answer, the agent needs the customer record and the details of each order. The three lookups don't depend on one another. Today the agent makes one lookup per response, so there are three round trips before it can reply, and customers notice the delay. What is the best change?</p>
+<ol><li data-l="A">Let the agent ask for all three lookups in one response, run them at the same time, and return all three results together in the next message before it replies.</li><li data-l="B">Let the agent ask for all three lookups in one response, run them at the same time, and return each result in a separate message so that it can react to each.</li><li data-l="C">Keep one lookup per response, and cut the delay by moving the agent to a smaller and faster model, so that each of the three round trips finishes sooner.</li><li data-l="D">Merge the lookups into one large tool that always returns the customer record and every order on the account, whichever of them the customer's question needs.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Independent lookups can be requested in a single response and run side by side, which turns three round trips into one. The results for one response go back together in the next message. A tool that always returns everything fills the context with orders nobody asked about.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q4</b> Agentic Architecture &amp; Orchestration</div>
+<p>For billing disputes the agent follows a fixed six-step checklist. It works through every step even after an early lookup has shown the cause, such as a duplicate charge, and it doesn't follow up on things the checklist never mentions, such as a second account under the same email address. Policy does require some checks, identity verification among them, on every dispute. What is the best redesign?</p>
+<ol><li data-l="A">Have the agent plan its next steps from what each lookup shows, adding or dropping steps as it learns more, including the checks that policy requires when they look unnecessary.</li><li data-l="B">Keep the fixed checklist, and extend it with further steps for duplicate charges and second accounts, so that the cases seen so far are covered in a set order.</li><li data-l="C">Have the agent plan its next steps from what each lookup shows, adding or dropping steps as it learns more, while the checks that policy requires stay enforced in code.</li><li data-l="D">Keep the fixed checklist, and add a last step in which the agent reviews everything it found and decides whether any of the earlier steps ought to be repeated.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Letting the plan follow the findings handles cases nobody listed in advance and stops wasted steps. The checks that must always happen are a different kind of requirement, so they stay enforced in code where the agent can't drop them.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q5</b> Prompt Engineering &amp; Structured Output</div>
+<p>The agent answers accurately on orders, refunds and delivery. On questions about consumer law and tax it is wrong about a third of the time, and those wrong answers carry real risk. Management wants to keep automation where it performs well. Which change to the prompt and routing is best?</p>
+<ol><li data-l="A">State which topics the agent handles and which it must hand over, with examples on both sides of the line, and send the excluded topics to a person.</li><li data-l="B">State which topics the agent handles, leave the others unmentioned so that it can still attempt them, and add a note to those answers that they may be wrong.</li><li data-l="C">Tell the agent to answer only when it is confident, with examples of confident answers, and send anything that it marks as uncertain to a person.</li><li data-l="D">Tell the agent to take special care over consumer law and tax, with examples of careful answers, and keep every topic automated in the way that it is now.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Where performance is unreliable, draw an explicit boundary: say what is in, say what is out, and show examples of each. Relying on the agent's own sense of confidence doesn't work, because it is often confident when it is wrong.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 2</b> Questions 6–10</div>
+<p style="font-weight:600;margin-bottom:4px">Developer productivity with Claude</p>
+<p style="margin:0">You're building an internal assistant with the Claude Agent SDK. It helps engineers explore unfamiliar codebases, understand legacy systems and automate routine tasks. It uses the built-in tools (Read, Edit, Write, Grep, Glob, Bash) and connects to MCP servers.</p></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q6</b> Agentic Architecture &amp; Orchestration</div>
+<p>You've defined a <code>test-runner</code> subagent with a description, a prompt and a tool list containing Read and Grep. The coordinator delegates test runs to it correctly. Each time, the subagent reads the test files, explains what the tests would probably do, and reports that it has no way to execute them. What is the cause, and the fix?</p>
+<ol><li data-l="A">The coordinator's allowed tools leave out the tool that starts subagents, so the work never reaches the subagent, and that tool needs to be added to the coordinator.</li><li data-l="B">The subagent's description is too brief for the coordinator to match tasks to it, so the wrong work is delegated, and the description needs to be rewritten.</li><li data-l="C">The subagent's definition lists only Read and Grep as its tools, so it has no way to run commands, and Bash needs to be added to that list.</li><li data-l="D">The subagent's prompt doesn't mention running the tests, so it doesn't know that it should, and an instruction to run them needs to be added to it.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> The symptoms locate the fault. Delegation works, so the coordinator and the description are fine. The subagent wants to run the tests and says it can't, which points to its tool list and not its prompt.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q7</b> Tool Design &amp; MCP Integration</div>
+<p>The team shares an MCP server that searches internal documentation. Every engineer should get it automatically, and each has their own access token. A new engineer reports that the assistant "doesn't have" the documentation tool. Which setup is correct, and how should it be checked?</p>
+<ol><li data-l="A">Define the server in the project's <code>.mcp.json</code> with one shared team token written into the file, and have each engineer confirm that the server's tools are listed.</li><li data-l="B">Define the server in each engineer's user-level configuration with their own token written into it, and have each engineer confirm that the server's tools are listed.</li><li data-l="C">Define the server in the project's <code>.mcp.json</code> with the token read from an environment variable, and add a line to the system prompt saying that the documentation tool is available.</li><li data-l="D">Define the server in the project's <code>.mcp.json</code> with the token read from an environment variable, and have each engineer set that variable and confirm that the server's tools are listed.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> The project file shares the server with everyone, and the environment variable keeps each person's token out of the repository. Checking that the tools are actually listed is how you confirm the connection. A line in the prompt can't make a tool exist.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q8</b> Tool Design &amp; MCP Integration</div>
+<p>Two MCP tools are described as "Search documentation" and "Search code". The first covers the internal wiki and the second covers every repository. Engineers ask how an internal API should be used, and the assistant often picks the wrong tool, or falls back on the built-in Grep in the local checkout. What is the best fix?</p>
+<ol><li data-l="A">Rewrite each description to say what it searches and what it returns, and add a rule to the system prompt saying which tool to use for each kind of question.</li><li data-l="B">Rewrite each description to say what it searches, what input it expects, what it returns, and when to choose it over the other tool and over Grep.</li><li data-l="C">Merge the two tools into one search tool with a parameter for the source, and describe the parameter's allowed values briefly in the tool's input schema.</li><li data-l="D">Keep the descriptions as they are, and rename the tools so that each name spells out its source in full and sorts ahead of Grep in the list.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> The description is what the model reads when it chooses a tool, so the boundaries between similar tools belong there, including when to prefer each one. A rule in the system prompt sits apart from the tools and is easier to miss.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q9</b> Tool Design &amp; MCP Integration</div>
+<p>Before answering questions about the platform, the assistant makes many calls to <code>list_services</code> and <code>get_service_info</code> just to find out which services exist. The catalogue holds about three hundred service descriptions and rarely changes. The same MCP server also offers actions such as restarting a service. How should the server expose these?</p>
+<ol><li data-l="A">Expose the service catalogue as MCP resources that the assistant can browse, and keep restart and similar actions as tools, each with a clear description.</li><li data-l="B">Expose the service catalogue and the restart actions as MCP resources, so that everything the server offers can be browsed in one consistent way.</li><li data-l="C">Expose the service catalogue through one tool that returns all three hundred descriptions in a single call, and keep restart and similar actions as tools.</li><li data-l="D">Expose each service's description through a separate tool named after that service, and keep restart and similar actions as tools, each with a clear description.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Resources are for content the assistant reads, and tools are for actions it takes. A browsable catalogue removes the exploratory calls. Actions can't be resources, and three hundred tools or one enormous result would both overload the context.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q10</b> Agentic Architecture &amp; Orchestration</div>
+<p>The assistant automates a migration across eighty modules, with a subagent handling each module. A run was interrupted after fifty. On restart it began again from the first module, and the notes that subagents had made about awkward modules were gone. What is the best design change?</p>
+<ol><li data-l="A">Have each subagent save its result and notes to a file when it finishes, and have the coordinator rerun every module on restart so that the results are consistent.</li><li data-l="B">Have the coordinator hold every result and note in its own conversation, summarise them every ten modules, and resume that same conversation when the run is restarted.</li><li data-l="C">Have the coordinator keep a manifest of completed modules, without their results or notes, and have it skip those modules when the run is restarted.</li><li data-l="D">Have each subagent save its result and notes to a file when it finishes, keep a manifest of completed modules, and have the coordinator read both when it restarts.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Progress has to be saved outside the conversation to survive an interruption. The manifest says what is done, and the saved results and notes keep what was learned. A manifest alone avoids the repeat work but still loses the findings.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 3</b> Questions 11–15</div>
+<p style="font-weight:600;margin-bottom:4px">Structured data extraction</p>
+<p style="margin:0">You're designing a system that uses Claude to pull structured data out of documents such as invoices and contracts. The output is checked against a JSON schema and passed to downstream systems. Accuracy has to stay high, including on unusual documents.</p></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q11</b> Context Management &amp; Reliability</div>
+<p>About three per cent of extractions contain an error. Reviewers currently check a random ten per cent of all extractions and miss most of the errors. Analysis shows that the errors cluster in handwritten documents, in invoices with more than one currency, and in the tax ID field. Which review design is best?</p>
+<ol><li data-l="A">Route extractions to review by field-level confidence that has been checked against labelled data, and by document type, and stop the random sample now that routing covers the errors.</li><li data-l="B">Route extractions to review by the document-level confidence that Claude reports, without checking it against labelled data, and keep a small random sample alongside it.</li><li data-l="C">Route extractions to review by field-level confidence that has been checked against labelled data, and by document type, and keep a small random sample to catch what the routing misses.</li><li data-l="D">Raise the random sample from ten per cent to thirty per cent of all extractions, so that about three times as many of the errors are likely to be caught.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Review effort should go where the errors are: weak fields and weak document types. Confidence scores only earn trust once they have been checked against known answers. The small random sample stays, because it is the only way to notice a new kind of error that the routing doesn't know about.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q12</b> Prompt Engineering &amp; Structured Output</div>
+<p>The schema requires a purchase order number, and it requires payment terms chosen from a fixed list: net 30, net 60 or on receipt. Some invoices have no purchase order number, and some state terms such as "45 days from end of month". Claude invents purchase order numbers and files unusual terms under net 30. Which schema change is best?</p>
+<ol><li data-l="A">Make the purchase order number nullable, and add an "other" value to the payment terms with a text field for the wording, so that both gaps are recorded honestly.</li><li data-l="B">Make the purchase order number nullable, and keep the payment terms list as it is with an instruction to choose the closest value, so that downstream systems see known values.</li><li data-l="C">Keep the purchase order number required with an instruction to write "unknown" when it is missing, and add an "other" value to the payment terms with a text field.</li><li data-l="D">Keep both fields as they are now, and add an instruction that Claude must never invent a purchase order number or choose a payment term that isn't stated.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> A schema that can't express "missing" or "something else" pushes the model to make something up. A nullable field and an "other" value with the original wording give it an honest answer for each case.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q13</b> Prompt Engineering &amp; Structured Output</div>
+<p>Some invoices have more than four hundred line items. The response is cut off part-way through, with a stop reason of <code>max_tokens</code>, and the JSON is invalid. The output limit has already been raised twice, and the largest invoices still fail. What is the best fix?</p>
+<ol><li data-l="A">Raise the output limit to the highest value the model allows, and retry any response that is still cut off, checking the total count against the invoice.</li><li data-l="B">Split the document into page ranges, extract the line items from each range in its own call, and merge the lists in code, checking the total count against the invoice.</li><li data-l="C">Split the document into page ranges, extract the line items from each range in its own call, and ask one final call to return all of the lists merged together.</li><li data-l="D">Ask Claude to return the line items in a shorter form with abbreviated field names, so that more of them fit inside the output limit of a single call.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> When the output is too big for one response, make the task smaller instead of the limit bigger. The merge has to happen in code: a final call that returns everything merged would hit the same limit again.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q14</b> Context Management &amp; Reliability</div>
+<p>The system has two workloads. Accounts staff upload invoices and wait on screen for the extracted fields. Separately, an archive of two hundred thousand documents has to be processed each month, with no deadline shorter than a week. Finance wants the cost brought down. Which processing design is best?</p>
+<ol><li data-l="A">Use the Message Batches API for both workloads, since it costs less, and show staff a message that asks them to come back later for their results.</li><li data-l="B">Use the real-time Messages API for both workloads, since one path is simpler to run, and bring the cost down by lowering the output limit on every call.</li><li data-l="C">Use the Message Batches API for the uploads that staff are waiting on, since they are small, and the real-time Messages API for the monthly archive, since it is large.</li><li data-l="D">Use the real-time Messages API for the uploads that staff are waiting on, and the Message Batches API for the monthly archive, since it can wait and costs less.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Choose by whether someone is waiting. Work that blocks a person needs a real-time call. Work that can wait hours suits batch processing, which costs less. Size isn't the deciding factor.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q15</b> Prompt Engineering &amp; Structured Output</div>
+<p>Three teams each use a different way of getting JSON from Claude: a format described in the prompt with an example, a response that is started with an opening brace, and a tool with a JSON schema that Claude is required to call. The nightly load into the finance system rejects anything invalid, and a missing required field stops the whole load. Which approach should the extraction pipeline use?</p>
+<ol><li data-l="A">Define the schema as a tool and require the tool call, and remove the validation in code, since a required tool call can no longer return anything that is invalid.</li><li data-l="B">Describe the JSON format in the prompt with a full example, validate the result in code, and retry any response that fails to parse or is missing a field.</li><li data-l="C">Define the schema as a tool and require the tool call, validate the result in code as well, and keep prompt-only formatting for places where an occasional slip is harmless.</li><li data-l="D">Start Claude's response with an opening brace so that it carries on in JSON, validate the result in code, and retry any response that fails to parse.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> A required tool call with a schema gives the strongest guarantee on structure, which is what a strict downstream load needs. Validation in code still earns its place, because a schema can't check that the values make sense.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>B</td><td>Q6</td><td>C</td><td>Q11</td><td>C</td></tr>
+<tr><td>Q2</td><td>D</td><td>Q7</td><td>D</td><td>Q12</td><td>A</td></tr>
+<tr><td>Q3</td><td>A</td><td>Q8</td><td>B</td><td>Q13</td><td>B</td></tr>
+<tr><td>Q4</td><td>C</td><td>Q9</td><td>A</td><td>Q14</td><td>D</td></tr>
+<tr><td>Q5</td><td>A</td><td>Q10</td><td>D</td><td>Q15</td><td>C</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with the full list of six scenarios, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>
