@@ -39,10 +39,17 @@ These are scenario-based, like the real exam. Each set has three scenarios with 
 | [Set 3](ccarf-practice-set3.html) | 15 | Code generation, structured data extraction, multi-agent research (harder questions) |
 | [Set 4](ccarf-practice-set4.html) | 15 | Customer support agent, developer productivity, Claude Code in CI (harder questions) |
 | [Set 5](ccarf-practice-set5.html) | 15 | Structured data extraction, code generation, multi-agent research (design decisions) |
+| [Set 6](ccarf-practice-set6.html) | 15 | Multi-agent research, code generation, Claude Code in CI (real-exam style: longer questions, closely matched options) |
 
 ### Claude Certified Architect – Professional (CCAR-P)
 
 No sets yet.
+
+### Study guides
+
+| Guide | What it covers |
+|---|---|
+| [Choosing a `tool_choice` setting](guide-tool-choice.html) | The four settings, a two-question method for choosing between them, the common traps, and 10 drill questions |
 
 ## About the exams
 

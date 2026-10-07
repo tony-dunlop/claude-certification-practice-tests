@@ -1,0 +1,255 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choosing tool_choice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+<style>
+h2{font:600 1.35rem/1.3 Literata,Georgia,serif;margin:16px 0 0;text-wrap:balance}
+.q h3{font:600 1rem/1.4 "IBM Plex Sans",sans-serif;margin:14px 0 4px}
+.q h3:first-of-type{margin-top:8px}
+.tw{overflow-x:auto}
+table.g{border-collapse:collapse;width:100%;min-width:480px}
+table.g th,table.g td{border-top:1px solid var(--line);padding:8px 10px 8px 0;text-align:left;vertical-align:top}
+table.g th{border-top:0;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+pre{background:var(--code);padding:12px 14px;border-radius:6px;overflow-x:auto;margin:8px 0;font:0.85rem/1.5 "IBM Plex Mono",ui-monospace,monospace}
+.q ul{margin:6px 0;padding-left:20px;display:grid;gap:6px}
+.rule{border-color:var(--accent)}
+.rule p{font-weight:600;margin:6px 0 0}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Study guide · Tool Design &amp; MCP Integration</div>
+<h1>Choosing a <code>tool_choice</code> setting</h1>
+</header>
+<p class="lede">A five-minute guide to the four settings, a two-question method for choosing between them, and the traps that exam questions are built on. There are ten drill questions at the end.</p>
+
+<section class="q rule"><div class="meta"><b>The one idea</b></div>
+<p><code>tool_choice</code> answers two things: must Claude call a tool, and if so, does it get to choose which one?</p></section>
+
+<h2>The four settings</h2>
+<section class="q"><div class="tw"><table class="g">
+<tr><th>Setting</th><th>What Claude must do</th><th>Can it reply in text?</th><th>Who picks the tool?</th></tr>
+<tr><td><code>auto</code></td><td>Nothing is forced. This is the default when tools are present.</td><td>Yes</td><td>Claude</td></tr>
+<tr><td><code>any</code></td><td>Call one of the tools.</td><td>No</td><td>Claude</td></tr>
+<tr><td>A named tool</td><td>Call that exact tool.</td><td>No</td><td>You</td></tr>
+<tr><td><code>none</code></td><td>Call no tools.</td><td>Yes, text only</td><td>Nobody</td></tr>
+</table></div>
+<p>In an API request they look like this:</p>
+<pre>"tool_choice": {"type": "auto"}
+"tool_choice": {"type": "any"}
+"tool_choice": {"type": "tool", "name": "get_customer"}
+"tool_choice": {"type": "none"}</pre></section>
+
+<h2>The two-question method</h2>
+<section class="q">
+<p>Ask these in order. The first one settles more than half the questions.</p>
+<h3>1. Is a plain-text reply acceptable for this request?</h3>
+<ul><li>Yes, text is fine: <code>auto</code>.</li>
+<li>Text is the only thing wanted, with no tool calls: <code>none</code>.</li>
+<li>No, a tool must be called: go to question 2.</li></ul>
+<h3>2. Does it have to be one particular tool?</h3>
+<ul><li>Yes, exactly this one: name the tool.</li>
+<li>No, any of several could be right: <code>any</code>.</li></ul>
+<p>A quick test for question 1: if a program reads the result, text is not acceptable. If a person reads it, text usually is.</p></section>
+
+<h2>Three checks before you commit</h2>
+<section class="q">
+<h3>Is it forced on this request, or on every request?</h3>
+<p><code>tool_choice</code> is sent with each request, so you can change it from one turn to the next. If a tool is forced on every turn, the agent can never finish: with <code>any</code> it can't give a final text answer, and with a named tool it calls the same tool for ever. Force a tool only on the turns that need one, then go back to <code>auto</code>.</p>
+<h3>What happens when the input doesn't fit the forced tool?</h3>
+<p>Claude still has to fill in that tool's fields, so it invents values. An instruction to "leave the fields empty" doesn't reliably stop this. Give Claude an honest alternative: a second tool such as <code>reject_document</code>, with <code>tool_choice</code> set to <code>any</code>.</p>
+<h3>Is a prompt instruction being offered as the fix?</h3>
+<p>An instruction such as "always look the customer up first" makes the behaviour likely. <code>tool_choice</code> makes it certain. When a question says something must <em>always</em> happen, the instruction is the wrong answer.</p></section>
+
+<h2>Why the wrong answers are tempting</h2>
+<section class="q"><div class="tw"><table class="g">
+<tr><th>Tempting choice</th><th>Why it feels right</th><th>Why it's wrong</th></tr>
+<tr><td><code>any</code> for a fixed first step</td><td>It sounds like the strictest setting.</td><td>It forces a tool call but not which one, so the agent can still start with the wrong tool.</td></tr>
+<tr><td><code>auto</code> plus an instruction</td><td>It's flexible, and the instruction says what to do.</td><td>Claude can still reply in text or pick another tool.</td></tr>
+<tr><td>A named tool on every request</td><td>It guarantees the structure.</td><td>Inputs that don't fit get invented values, and the agent can never move on.</td></tr>
+<tr><td><code>none</code> with "return JSON in your reply"</td><td>It still asks for structure.</td><td>Nothing enforces the schema, so the structure isn't guaranteed.</td></tr>
+</table></div></section>
+
+<h2>The three questions you met in the practice sets</h2>
+<section class="q">
+<h3>Three extraction tools, document type unknown, Claude sometimes replies in text</h3>
+<p>Text isn't acceptable. Any of the three tools could be right. Answer: <code>any</code>.</p>
+<h3>The agent must look the customer up before anything else</h3>
+<p>Text isn't acceptable on the first turn. It must be one particular tool. Answer: name <code>get_customer</code> on the first request, then return to <code>auto</code>.</p>
+<h3>The invoice tool is forced, and non-invoices get invented values</h3>
+<p>A program reads every result, so text isn't acceptable and <code>auto</code> is out. The input doesn't always fit the forced tool. Answer: add a reject tool and use <code>any</code>.</p></section>
+
+<h2>Two side effects worth knowing</h2>
+<section class="q"><ul>
+<li>With <code>any</code> or a named tool, Claude goes straight to the tool call. It doesn't write any explanation first.</li>
+<li>Extended thinking works only with <code>auto</code> and <code>none</code>. You can't force a tool while thinking is on.</li>
+</ul></section>
+
+<h2>Drill</h2>
+<p class="lede">Questions 1 to 8 give a situation, and you pick the setting. Questions 9 and 10 ask you to fix a design. Click an option to answer.</p>
+
+<section class="q" data-a="A"><div class="meta"><b>Q1</b> Pick the setting</div>
+<p>A general chat assistant has a weather tool. Most questions have nothing to do with the weather, and the assistant should answer those in plain text.</p>
+<ol><li data-l="A"><code>auto</code></li><li data-l="B"><code>any</code></li><li data-l="C">A named tool</li><li data-l="D"><code>none</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> A text reply is fine here, so let Claude decide. That is <code>auto</code>.</div></details></section>
+<section class="q" data-a="B"><div class="meta"><b>Q2</b> Pick the setting</div>
+<p>Every incoming message must be routed by calling one of three tools: <code>route_billing</code>, <code>route_technical</code> or <code>route_sales</code>. A program reads the result, so a text reply would break it.</p>
+<ol><li data-l="A"><code>auto</code></li><li data-l="B"><code>any</code></li><li data-l="C">A named tool</li><li data-l="D"><code>none</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Text is never acceptable, and any of the three tools could be the right one. Claude must call a tool but chooses which: <code>any</code>.</div></details></section>
+<section class="q" data-a="C"><div class="meta"><b>Q3</b> Pick the setting</div>
+<p>A support agent must always begin a new ticket by calling <code>get_customer</code>. This is the first request of the ticket.</p>
+<ol><li data-l="A"><code>auto</code></li><li data-l="B"><code>any</code></li><li data-l="C">A named tool</li><li data-l="D"><code>none</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> One particular tool has to be called, so name it. <code>any</code> would still let the agent start with a different tool.</div></details></section>
+<section class="q" data-a="A"><div class="meta"><b>Q4</b> Pick the setting</div>
+<p>Same support agent, second request onwards. The customer lookup has been done. The agent should now choose its own next step, and eventually reply to the customer.</p>
+<ol><li data-l="A"><code>auto</code></li><li data-l="B"><code>any</code></li><li data-l="C">A named tool</li><li data-l="D"><code>none</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> The fixed step is over. Go back to <code>auto</code>, or the agent would call <code>get_customer</code> on every turn and never reply.</div></details></section>
+<section class="q" data-a="C"><div class="meta"><b>Q5</b> Pick the setting</div>
+<p>An earlier step has already confirmed that every document is an invoice. There is one tool, <code>record_invoice</code>, and every response must match its schema.</p>
+<ol><li data-l="A"><code>auto</code></li><li data-l="B"><code>any</code></li><li data-l="C">A named tool</li><li data-l="D"><code>none</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Exactly one tool is right for every document, and the input always fits it. Name the tool.</div></details></section>
+<section class="q" data-a="D"><div class="meta"><b>Q6</b> Pick the setting</div>
+<p>The agent has gathered everything it needs. On this last request you want a written summary for the user and no further tool calls. The tools are still defined in the request.</p>
+<ol><li data-l="A"><code>auto</code></li><li data-l="B"><code>any</code></li><li data-l="C">A named tool</li><li data-l="D"><code>none</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Tools must not be used on this turn. <code>none</code> switches them off without removing their definitions.</div></details></section>
+<section class="q" data-a="B"><div class="meta"><b>Q7</b> Pick the setting</div>
+<p>A document could be an invoice, a contract or a receipt. There is one extraction tool for each type, and a program reads the result.</p>
+<ol><li data-l="A"><code>auto</code></li><li data-l="B"><code>any</code></li><li data-l="C">A named tool</li><li data-l="D"><code>none</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Text is not acceptable, and you can't know in advance which tool fits. <code>any</code> forces a tool call and leaves the choice to Claude.</div></details></section>
+<section class="q" data-a="A"><div class="meta"><b>Q8</b> Pick the setting</div>
+<p>Extended thinking is switched on, and the agent needs to be able to call its tools. Which setting can you use?</p>
+<ol><li data-l="A"><code>auto</code></li><li data-l="B"><code>any</code></li><li data-l="C">A named tool</li><li data-l="D"><code>none</code></li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Extended thinking only works with <code>auto</code> and <code>none</code>, and <code>none</code> would switch the tools off. Forcing a tool with <code>any</code> or a named tool isn't available while thinking is on.</div></details></section>
+<section class="q" data-a="C"><div class="meta"><b>Q9</b> Fix the design</div>
+<p><code>tool_choice</code> is fixed on a <code>book_appointment</code> tool. Some messages aren't booking requests at all, and Claude books made-up appointments for them. A program reads every result. What is the best fix?</p>
+<ol><li data-l="A">Keep the booking tool forced, and tell Claude to leave the fields blank for other messages</li><li data-l="B">Set <code>tool_choice</code> to <code>auto</code>, and accept a text reply whenever the message isn't a booking</li><li data-l="C">Add a second tool for messages that aren't bookings, and set <code>tool_choice</code> to <code>any</code></li><li data-l="D">Set <code>tool_choice</code> to <code>none</code>, and ask Claude to describe the booking details in its reply</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> A forced tool has to be filled in even when the input doesn't fit, so Claude invents values. Give it an honest second tool and use <code>any</code>. <code>auto</code> would allow text, which the program can't read.</div></details></section>
+<section class="q" data-a="D"><div class="meta"><b>Q10</b> Fix the design</div>
+<p>An agent has <code>tool_choice</code> set to <code>any</code> on every request. It works through its tools correctly, but it never gives the customer a final answer. What is the best fix?</p>
+<ol><li data-l="A">Keep <code>any</code> on every turn, and add an instruction telling Claude to stop when it is done</li><li data-l="B">Keep <code>any</code> on every turn, and raise the token limit so Claude has room to finish</li><li data-l="C">Switch every turn to <code>none</code>, so that Claude always answers the customer in plain text</li><li data-l="D">Force a tool only on the turns that need one, and use <code>auto</code> on all the others</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> With <code>any</code>, every response has to be a tool call, so a final text answer is impossible. Force a tool only where one is required.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>A</td><td>Q6</td><td>D</td></tr><tr><td>Q2</td><td>B</td><td>Q7</td><td>B</td></tr><tr><td>Q3</td><td>C</td><td>Q8</td><td>A</td></tr><tr><td>Q4</td><td>A</td><td>Q9</td><td>C</td></tr><tr><td>Q5</td><td>C</td><td>Q10</td><td>D</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial study material. Check Anthropic's tool use documentation for current behaviour before relying on a detail.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>

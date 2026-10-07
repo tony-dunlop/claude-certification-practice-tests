@@ -1,0 +1,227 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-F Practice Set 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8;--surface:#FFFFFF;--ink:#1B2230;--muted:#5B6577;--line:#DCE0E7;
+  --accent:#2F5D8A;--ok:#2E7D4F;--ok-bg:#E8F3EC;--code:#EEF1F5;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161D;--surface:#1A2029;--ink:#E6E9EE;--muted:#9AA4B2;--line:#2C3440;
+  --accent:#8DB4E0;--ok:#6FCF97;--ok-bg:#183024;--code:#232B36;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;padding:40px 16px 64px}
+main{max-width:720px;margin:0 auto;display:grid;gap:20px}
+h1{font:600 2rem/1.2 Literata,Georgia,serif;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+.lede strong{color:var(--ink)}
+code{font:0.88em "IBM Plex Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+.meta{display:flex;gap:10px;align-items:baseline;font:500 0.75rem "IBM Plex Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.q p{margin:8px 0 12px}
+ol{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ol li{position:relative}
+ol li::before{content:attr(data-l);position:absolute;left:8px;top:7px;font:500 0.9em "IBM Plex Mono",monospace;color:var(--muted)}
+details{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+summary{cursor:pointer;color:var(--accent);font-weight:600;width:max-content}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.ans{margin-top:8px;background:var(--ok-bg);border-radius:6px;padding:10px 14px}
+.ans b{color:var(--ok);font-family:"IBM Plex Mono",monospace}
+.key table{border-collapse:collapse;width:100%;font:0.95rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.key td{border-top:1px solid var(--line);padding:6px 4px}
+.key td:nth-child(2){color:var(--ok)}
+.foot{color:var(--muted);font-size:0.85rem}
+:root{--bad:#B3261E;--bad-bg:#FBEAEA;--hover:#EEF2F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}}
+:root[data-theme="dark"]{--bad:#F28B82;--bad-bg:#3A1F1F;--hover:#232B36}
+body{padding-bottom:96px}
+ol li{cursor:pointer;padding:6px 8px 6px 2.2em;border-radius:6px;border:1px solid transparent}
+ol li:hover{background:var(--hover)}
+ol li:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol li.sel{border-color:var(--accent)}
+ol li.right{background:var(--ok-bg);border-color:var(--ok)}
+ol li.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.q[data-done] li{cursor:default}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.bar div{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#score{font:500 1rem "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+#total{font:600 1.5rem/1.3 Literata,Georgia,serif;margin:6px 0 12px}
+#chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+#chips span{font:500 0.85rem "IBM Plex Mono",monospace;text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+#chips .right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+#chips .wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+#reset{font:600 0.9rem "IBM Plex Sans",sans-serif;color:var(--accent);background:none;border:1px solid var(--line);border-radius:6px;padding:6px 14px;cursor:pointer}
+</style>
+
+<main>
+<header>
+<a href="index.html" style="display:inline-block;margin-bottom:10px;color:var(--accent);font-weight:600;text-decoration:none">&larr; All practice sets</a>
+<div class="meta">Claude Certified Architect – Foundations · CCAR-F</div>
+<h1>Architect practice set 6: 15 questions</h1>
+</header>
+<p class="lede">Scenario-based, like the real exam: <strong>three scenarios</strong> from the published list, written in the longer style of the real exam, with answer options that are close to one another, with five questions on each, spread across the five exam domains. The real exam uses four scenarios with 15 questions each. Click an option to answer. Pick one unless a question says otherwise. Once you answer, it's marked and the explanation opens. Your score is at the bottom of the screen.</p>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 1</b> Questions 1–5</div>
+<p style="font-weight:600;margin-bottom:4px">Multi-agent research system</p>
+<p style="margin:0">You're designing a research system in which a coordinator agent hands work to specialised subagents: one searches the web, one analyses documents, one combines the findings and one writes the report. Each subagent runs with its own separate context.</p></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q1</b> Agentic Architecture &amp; Orchestration</div>
+<p>Research questions arrive as four to six sub-questions. The sub-questions don't depend on one another, but the report can't be written until all of them are answered and any conflicts between them are settled. Today a single agent works through everything in one context. A run takes 25 minutes, and the later sub-questions get thinner treatment as the context fills. You need to cut the run time, keep the treatment even, and keep one place that decides whether coverage is good enough. Which structure fits best?</p>
+<ol><li data-l="A">Use a coordinator that sends each sub-question to its own subagent one after another, collects the findings, checks coverage itself, and only then passes the combined findings on to the synthesis step.</li><li data-l="B">Use a chain in which each sub-question's subagent passes its findings directly to the next subagent, with the last one in the chain checking coverage and then writing the synthesis itself.</li><li data-l="C">Use a coordinator that sends each sub-question to its own subagent in parallel, collects the findings, checks coverage itself, and only then passes the combined findings on to the synthesis step.</li><li data-l="D">Use parallel subagents for the sub-questions with no coordinator, have each one write its own section of the report, and join the sections in the order the sub-questions were asked.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Independent sub-questions can run in parallel, which cuts the run time and gives each one a clean context. The coordinator stays the single place that judges coverage. Running them one after another keeps the control but not the speed, and dropping the coordinator loses the coverage check and the settling of conflicts.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q2</b> Agentic Architecture &amp; Orchestration</div>
+<p>The coordinator briefs the document-analysis subagent with a step list: open each PDF, extract every table, and list every figure above ten per cent. This works on standard reports. On unusual ones, where the key data sits in the narrative text and there are no tables, the subagent returns almost nothing. The coordinator also needs to compare results across documents, so it must be able to line them up. Which change to the brief best addresses both needs?</p>
+<ol><li data-l="A">State what the analysis is for and what a good result contains, let the subagent decide how to find it in each document, and require every result in the same fixed structure.</li><li data-l="B">State what the analysis is for and what a good result contains, let the subagent decide how to find it in each document, and let it choose whichever structure suits each result.</li><li data-l="C">Keep the step list, add further steps that cover narrative text and documents with no tables, and require every result in the same fixed structure so that documents can be compared.</li><li data-l="D">Keep the step list, add a closing step telling the subagent to use its judgement when a document doesn't fit, and let it choose whichever structure suits each result.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> A goal with success criteria lets the subagent adapt to documents the step list never anticipated. A fixed return structure keeps the results comparable, so the coordinator keeps its view. Adding steps only covers the cases someone thought of in advance.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q3</b> Tool Design &amp; MCP Integration</div>
+<p>All four subagents were given the full set of 14 tools "for flexibility". Logs show the report writer occasionally running new web searches and adding claims that never went through analysis or synthesis, and the search subagent sometimes writing files. A teammate points out that it is occasionally handy for the report writer to look something up. You want every claim in a report to have passed through the same checks. What is the best design?</p>
+<ol><li data-l="A">Give each subagent only the tools for its own role, except for the report writer, which keeps the search tools so that it can fill small gaps without a round trip.</li><li data-l="B">Keep all the tools on every subagent, and add a section to each system prompt that lists which tools belong to its role and which ones it should leave alone.</li><li data-l="C">Keep all the tools on every subagent, and have the coordinator inspect each subagent's tool calls afterwards and discard any output that came from a tool outside its role.</li><li data-l="D">Give each subagent only the tools for its own role, and send any need outside that role back through the coordinator, so that new material always passes through analysis and synthesis.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Tools that aren't offered can't be misused, and fewer tools make each subagent's choices more reliable. Sending out-of-role needs back through the coordinator keeps every claim on the same path. Leaving the report writer its search tools keeps the exact problem you are trying to remove.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q4</b> Agentic Architecture &amp; Orchestration</div>
+<p>The coordinator calls the synthesis subagent with a prose summary of what the search and analysis subagents found. The synthesis comes back with claims that have no sources, and the subagent often has to ask the coordinator for details that were left out, which costs extra round trips. What should the coordinator pass in so that the synthesis subagent can finish the task in one go?</p>
+<ol><li data-l="A">The findings themselves as structured data, each with its source, date and supporting quote, but without the research question, so that the synthesis is not steered towards one particular answer.</li><li data-l="B">The findings themselves as structured data, each with its source, date and supporting quote, together with the research question and the output format that the report writer expects to receive.</li><li data-l="C">A longer prose summary of the findings that mentions the main sources by name, together with the research question and the output format that the report writer expects to receive.</li><li data-l="D">The identifiers of the earlier subagent runs, together with the research question, so that the synthesis subagent can ask the coordinator for the particular findings it decides that it needs.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> A subagent has only what its brief contains. To finish in one go it needs the findings with their source details, the question they answer and the format wanted. A summary, however long, has already thrown the source details away.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q5</b> Agentic Architecture &amp; Orchestration</div>
+<p>One kind of request asks the system to compare how three countries regulate a product, then assess which approach would suit a fourth country. The three country studies don't depend on one another. The assessment depends on all three. Today the coordinator starts all four tasks at once, and the assessment comes back generic because its subagent started with nothing to assess. How should the coordinator order the work?</p>
+<ol><li data-l="A">Run the three country studies in parallel, wait until all three have returned, and then start the assessment with their findings included in the brief that its subagent is given.</li><li data-l="B">Run all four tasks in parallel as now, and have the assessment subagent ask the coordinator for the country findings when it reaches the point where it needs them.</li><li data-l="C">Run all four tasks one after another with the assessment last, so that each subagent can be given the findings of every task that finished before it started.</li><li data-l="D">Run the three country studies in parallel, start the assessment at the same moment, and combine the assessment with the country findings afterwards in the synthesis step.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Run independent work in parallel and dependent work after the things it depends on. Running everything in sequence would also work, but it gives up the time saved on the three studies.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 2</b> Questions 6–10</div>
+<p style="font-weight:600;margin-bottom:4px">Code generation with Claude Code</p>
+<p style="margin:0">Your team uses Claude Code to build features in a large existing codebase. You're deciding how it's configured and how developers should work with it.</p></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q6</b> Claude Code Configuration &amp; Workflows</div>
+<p>The team has four kinds of guidance to set up. First, coding conventions that apply to every file. Second, rules for API handlers that matter only for files under <code>src/api</code>. Third, a forty-step release procedure that is used about once a fortnight. Fourth, a requirement that the linter runs after every edit, with no exceptions. Which arrangement puts each one in the right place?</p>
+<ol><li data-l="A">Conventions in the project <code>CLAUDE.md</code>, the API rules in a rule file with a path pattern for <code>src/api</code>, the release procedure as a hook, and the linter as a skill.</li><li data-l="B">Conventions in the project <code>CLAUDE.md</code>, the API rules in that same file under their own heading, the release procedure as a skill, and the linter as an instruction in a rule file.</li><li data-l="C">Conventions in a rule file with a path pattern for <code>src/api</code>, the API rules in the project <code>CLAUDE.md</code>, the release procedure as a skill, and the linter as a hook.</li><li data-l="D">Conventions in the project <code>CLAUDE.md</code>, the API rules in a rule file with a path pattern for <code>src/api</code>, the release procedure as a skill, and the linter as a hook.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> Match each mechanism to when the guidance should apply: <code>CLAUDE.md</code> for always, a path-scoped rule for certain files, a skill for an occasional procedure loaded on demand, and a hook for something that must run every time.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q7</b> Claude Code Configuration &amp; Workflows</div>
+<p>Security policy says Claude Code must never read files in the <code>secrets</code> folder and must never run <code>terraform apply</code>. The restriction has to apply to everyone who works in the repository, and it must not depend on Claude choosing to comply. Where should it be defined?</p>
+<ol><li data-l="A">As deny rules in the permissions of <code>.claude/settings.local.json</code>, which is kept out of version control and applies on the machine where it was written.</li><li data-l="B">As deny rules in the permissions of the project's <code>.claude/settings.json</code>, which is committed and applies to everyone who works in the repository.</li><li data-l="C">As a security section in the project's <code>CLAUDE.md</code>, which is committed and is loaded into every session for everyone who works in the repository.</li><li data-l="D">As a rule file with a path pattern for the <code>secrets</code> folder, which is committed and is loaded whenever Claude works on a matching file.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Permission rules in settings are enforced by Claude Code itself, so they don't rely on the model complying. The project settings file is shared through the repository. <code>CLAUDE.md</code> and rule files are guidance, which is followed most of the time, not always.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q8</b> Claude Code Configuration &amp; Workflows</div>
+<p>Yesterday a developer spent a long Claude Code session mapping a module of about forty files and agreeing a refactoring plan. Overnight a teammate merged changes to three of those files. Today the developer wants to carry on and implement the plan. They want to keep the analysis and the agreed plan, avoid acting on file contents that are out of date, and avoid repeating yesterday's work. What should they do?</p>
+<ol><li data-l="A">Resume yesterday's session, and ask Claude to re-read all forty files and rebuild its analysis before it goes any further, so that nothing in the conversation is out of date.</li><li data-l="B">Start a new session, and ask Claude to map the module again from the beginning, so that both the analysis and the plan are based on the files as they are now.</li><li data-l="C">Resume yesterday's session, tell Claude which three files have changed, and ask it to re-read those and confirm that the plan still holds before it goes any further.</li><li data-l="D">Resume yesterday's session and carry on with the plan as agreed, since the earlier file contents are still in the conversation and only three of the files were touched.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Resuming keeps the analysis and the plan. Pointing Claude at the three changed files refreshes exactly what is stale. Re-reading everything, or starting again, repeats work that is still valid.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q9</b> Context Management &amp; Reliability</div>
+<p>Claude Code is tracing a data flow through about two hundred files of a legacy system over a session lasting several hours. Many files are more than two thousand lines long. After the context is compacted, Claude can no longer say which functions it had already confirmed, and it starts re-reading files. What combination of habits best keeps a session like this coherent?</p>
+<ol><li data-l="A">Have Claude record confirmed findings in a notes file as it goes, read only the relevant part of each file, and hand broad searches to subagents that return short summaries.</li><li data-l="B">Have Claude record confirmed findings in a notes file as it goes, and keep reading each file in full from top to bottom, so that nothing relevant in a file is missed.</li><li data-l="C">Have Claude rely on the summary that is made when the context is compacted, read only the relevant part of each file, and hand broad searches to subagents that return short summaries.</li><li data-l="D">Have Claude rely on the summary that is made when the context is compacted, and start a fresh session whenever its answers turn vague, repeating the trace from the entry point.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> Three habits work together: a notes file keeps exact findings outside the conversation, targeted reading slows the rate at which context fills, and subagents keep broad searches out of the main context. A compaction summary loses the specifics that a long trace depends on.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q10</b> Tool Design &amp; MCP Integration</div>
+<p>For one task Claude needs to do four things: find every file in the repository whose name ends in <code>.migration.sql</code>, find every place where the function <code>applyDiscount</code> is called, understand the code of the two most relevant callers, and check which migrations have been applied by running the project's status command. Which choice of built-in tools is best?</p>
+<ol><li data-l="A">Grep for the migration files, Glob for the calls to the function, Read for the two callers, and Bash for the project's status command.</li><li data-l="B">Glob for the migration files, Grep for the calls to the function, Bash with <code>cat</code> for the two callers, and Read for the project's status command.</li><li data-l="C">Glob for the migration files, Grep for the calls to the function, Read for the two callers, and Bash for the project's status command.</li><li data-l="D">Bash with <code>find</code> for the migration files, Bash with <code>grep</code> for the calls, Read for the two callers, and Bash for the project's status command.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> Glob matches file names and paths, Grep searches inside files, Read loads a file's contents, and Bash runs commands. Shell commands can do the first two jobs as well, but the dedicated tools are the intended choice and return results in a form Claude handles better.</div></details></section>
+
+<section class="q" style="border-color:var(--accent)"><div class="meta"><b>Scenario 3</b> Questions 11–15</div>
+<p style="font-weight:600;margin-bottom:4px">Claude Code for continuous integration</p>
+<p style="margin:0">Your team is adding Claude Code to its CI pipeline. On every pull request it reviews the changes and posts comments, and a nightly job generates missing tests.</p></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q11</b> Claude Code Configuration &amp; Workflows</div>
+<p>You're setting up the pull request review job. Reviews have to apply the team's standards, the job must not be able to change code or push anything, and a script will post each finding as an inline comment on the right line. Today the job runs with the default tools, the standards were pasted into the job's prompt months ago and have drifted from the repository's own, and the output is prose. Which configuration meets all three needs?</p>
+<ol><li data-l="A">Load the standards from the project's <code>CLAUDE.md</code>, leave the default tools in place for simple fixes, and require the findings as JSON with a file, line, severity and message for each one.</li><li data-l="B">Load the standards from the project's <code>CLAUDE.md</code>, limit the job to read-only tools, and require the findings as JSON with a file, line, severity and message for each one.</li><li data-l="C">Keep the standards in the job's own prompt, limit the job to read-only tools, and require the findings as JSON with a file, line, severity and message for each one.</li><li data-l="D">Load the standards from the project's <code>CLAUDE.md</code>, limit the job to read-only tools, and ask for the findings as a Markdown list that the script can then split up into comments.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Each part answers one need: the project file is the single maintained copy of the standards, read-only tools mean the job can't change or push anything, and structured output is what a script can post reliably.</div></details></section>
+
+<section class="q" data-a="D"><div class="meta"><b>Q12</b> Claude Code Configuration &amp; Workflows</div>
+<p>In the nightly job, one Claude Code run generates the missing tests and a second step reviews them. The review step currently resumes the generating session and asks it to review its own changes. It approves almost everything. You want a review that judges the tests on their merits and still applies the team's standards. Which design is best?</p>
+<ol><li data-l="A">Run the review as a new session that receives the changes, the project's standards and the generating session's full conversation, so that it understands the reasoning behind every decision.</li><li data-l="B">Run the review by resuming the generating session with the project's standards added and an instruction to be critical, so that it has the full background close to hand.</li><li data-l="C">Run the review by resuming the generating session twice, and keep only the findings that turn up in both passes, so that the result is more dependable than one pass.</li><li data-l="D">Run the review as a new session that receives the changes and the project's standards, without the generating session's conversation, so that it judges the tests on what was actually written.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>D.</b> A session that made the decisions tends to agree with them, and so does a new session that is handed the same reasoning. A fresh session with only the changes and the standards judges the result on its own.</div></details></section>
+
+<section class="q" data-a="A"><div class="meta"><b>Q13</b> Claude Code Configuration &amp; Workflows</div>
+<p>Test conventions live in three places: general ones in the project's <code>CLAUDE.md</code>, a path-scoped rule file for the <code>tests</code> folder, and fixture naming conventions in the lead developer's personal <code>CLAUDE.md</code>. The nightly test job follows the first two but not the fixture naming. The fix has to reach the CI job and every developer, and the conventions only matter when test files are involved. Where should the fixture naming conventions go?</p>
+<ol><li data-l="A">Into the path-scoped rule file for the <code>tests</code> folder, which is committed with the repository and is loaded only when test files are involved.</li><li data-l="B">Into the project's <code>CLAUDE.md</code>, which is committed with the repository and is loaded into every session, whichever files are involved.</li><li data-l="C">Onto the CI runner, as a copy of the lead developer's personal <code>CLAUDE.md</code>, so that the job loads the same conventions as that developer's sessions.</li><li data-l="D">Into a skill in the repository, which is committed with it and is loaded when a developer or the job decides to invoke it.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>A.</b> The conventions must be shared, so they belong in the repository, and they matter only for tests, so a path-scoped rule fits exactly. The project <code>CLAUDE.md</code> would also reach everyone, but it would load them into every session.</div></details></section>
+
+<section class="q" data-a="C"><div class="meta"><b>Q14</b> Context Management &amp; Reliability</div>
+<p>A pull request touching thirty files has had its first review. The developer then pushes two more commits that change four of those files. The second review should check whether the earlier findings were fixed, review the new changes, avoid repeating findings that are already resolved, and keep the cost down. Which approach is best?</p>
+<ol><li data-l="A">Resume the first review's session, and ask it to review all thirty files again from the start, so that the earlier findings and the new changes are covered in a single pass.</li><li data-l="B">Start a new session with the pull request's full set of changes and no record of the first review, so that the second review is not influenced by the first one.</li><li data-l="C">Resume the first review's session, give it the list of files changed since then, and ask it to re-check its earlier findings on those files and review only the new changes.</li><li data-l="D">Start a new session with only the two new commits and no record of the first review, so that just the latest changes are reviewed and the cost stays low.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>C.</b> The resumed session already knows what it found. Telling it which files changed lets it confirm fixes and look only at what is new. A new session with no record can't tell a fixed finding from one that was never raised.</div></details></section>
+
+<section class="q" data-a="B"><div class="meta"><b>Q15</b> Context Management &amp; Reliability</div>
+<p>A pull request changes the function <code>calculateTax</code>. Before commenting, the review job needs to understand what else in a large repository could be affected, and it has a limit on the number of turns it can use. Which exploration strategy is best?</p>
+<ol><li data-l="A">Grep for the function's name to find its callers, Read each matching file in full from top to bottom, and then Read every file that those files import as well.</li><li data-l="B">Grep for the function's name to find its callers, Read only the calling code around each match, and follow any wrapper functions the same way until no new callers appear.</li><li data-l="C">Glob for every source file in the repository, Read them in alphabetical order until the turn limit is close, and report on whichever callers were found up to that point.</li><li data-l="D">Read the changed file in full, and judge the impact from the function's own code and comments, without spending any turns on a search of the rest of the repository.</li></ol>
+<details><summary>Show answer</summary><div class="ans"><b>B.</b> Search first, then read only what the search points to, and follow the trail outwards. Reading whole files and their imports spends the turn limit on code that has nothing to do with the change.</div></details></section>
+
+<section class="q results"><div class="meta"><b>Your results</b></div>
+<p id="total"></p>
+<div id="chips"></div></section>
+
+<section class="q key"><div class="meta"><b>Answer key</b></div>
+<details><summary>Show all answers</summary>
+<table><tr><td>Q1</td><td>C</td><td>Q6</td><td>D</td><td>Q11</td><td>B</td></tr>
+<tr><td>Q2</td><td>A</td><td>Q7</td><td>B</td><td>Q12</td><td>D</td></tr>
+<tr><td>Q3</td><td>D</td><td>Q8</td><td>C</td><td>Q13</td><td>A</td></tr>
+<tr><td>Q4</td><td>B</td><td>Q9</td><td>A</td><td>Q14</td><td>C</td></tr>
+<tr><td>Q5</td><td>A</td><td>Q10</td><td>C</td><td>Q15</td><td>B</td></tr></table>
+</details></section>
+
+<p class="foot">Unofficial practice questions written to match the style of the published exam guide. They are not real exam items. The official guide, with the full list of six scenarios, is free on the Anthropic Partner Academy certification page.</p>
+</main>
+
+<div class="bar"><div><span id="score" aria-live="polite"></span><button id="reset" type="button">Start over</button></div></div>
+
+<script>
+const qs = [...document.querySelectorAll('.q[data-a]')];
+const out = document.getElementById('score');
+
+function tally() {
+  const done = qs.filter(q => q.dataset.done);
+  const ok = done.filter(q => q.dataset.done === '1').length;
+  out.textContent = `Score ${ok} / ${done.length}` + (done.length < qs.length ? ` · ${qs.length - done.length} to go` : ` · ${Math.round(ok / qs.length * 100)}%`);
+  document.getElementById('total').textContent = done.length < qs.length
+    ? `${ok} correct so far · ${qs.length - done.length} of ${qs.length} still to answer`
+    : `${ok} of ${qs.length} correct (${Math.round(ok / qs.length * 100)}%)`;
+  document.getElementById('chips').innerHTML = qs.map((q, i) => {
+    const s = q.dataset.done === '1' ? ['right', '✓'] : q.dataset.done === '0' ? ['wrong', '✗'] : ['', '–'];
+    return `<span class="${s[0]}">Q${i + 1} ${s[1]}</span>`;
+  }).join('');
+}
+
+qs.forEach(q => {
+  const need = q.dataset.a.length; // ponytail: multi-answer questions lock once you've picked that many
+  q.querySelectorAll('li').forEach(li => {
+    li.tabIndex = 0;
+    li.setAttribute('role', 'button');
+    const pick = () => {
+      if (q.dataset.done) return;
+      li.classList.toggle('sel');
+      const sel = [...q.querySelectorAll('li.sel')];
+      if (sel.length < need) return;
+      q.dataset.done = sel.map(s => s.dataset.l).sort().join('') === q.dataset.a ? '1' : '0';
+      q.querySelectorAll('li').forEach(l => {
+        if (q.dataset.a.includes(l.dataset.l)) l.classList.add('right');
+        else if (l.classList.contains('sel')) l.classList.add('wrong');
+      });
+      q.querySelector('details').open = true;
+      tally();
+    };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  qs.forEach(q => {
+    delete q.dataset.done;
+    q.querySelectorAll('li').forEach(l => l.classList.remove('sel', 'right', 'wrong'));
+    q.querySelector('details').open = false;
+  });
+  document.querySelector('.key details').open = false;
+  tally();
+  window.scrollTo(0, 0);
+});
+
+tally();
+</script>
