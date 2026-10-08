@@ -2,6 +2,8 @@
 
 Self-contained practice tests for the Claude certification exams delivered through Pearson VUE.
 
+**Take the tests online: https://tony-dunlop.github.io/claude-certification-practice-tests/**
+
 Each test is a single HTML file. Open it in any browser, click an option to answer, and the question is marked straight away with an explanation. Your score is tallied at the bottom of the page. Nothing is installed and nothing is sent anywhere.
 
 > These are unofficial practice questions, written to match the style of Anthropic's published exam guides. They are not real exam items.
@@ -11,6 +13,10 @@ Each test is a single HTML file. Open it in any browser, click an option to answ
 **These are short samples, not full-length mock exams.** Each set has 12 to 15 questions. The real Developer exam has 53 questions, and the real Architect exam has 60: four scenarios with 15 questions on each. Both allow 120 minutes. Questions in the real Architect exam are also longer, and their answer options are closer to one another, than in Architect sets 1 to 5. Architect sets 6 and 7 are the nearest in style.
 
 ## How to use
+
+The quickest way is the [online version](https://tony-dunlop.github.io/claude-certification-practice-tests/). Pick a set and start.
+
+To use the tests offline:
 
 1. Download or clone this repository.
 2. Open `index.html` in a browser.
